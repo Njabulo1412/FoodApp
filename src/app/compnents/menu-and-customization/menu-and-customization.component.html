@@ -1,0 +1,146 @@
+<div class="menu-container">
+  <div class="menu-header">
+    <h1>Digital Menu</h1>
+    <div class="cart-info" *ngIf="cart.length > 0">
+      <span class="cart-count">{{ cart.length }}</span>
+      <span class="cart-total">R{{ getCartTotal() }}</span>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="categories">
+    <button 
+      *ngFor="let category of categories"
+      (click)="filterByCategory(category)"
+      [class.active]="selectedCategory === category"
+      class="category-btn">
+      {{ category }}
+    </button>
+  </div>
+
+  <!-- Menu Items Grid -->
+  <div class="menu-grid">
+    <div *ngFor="let item of menuItems" class="menu-card">
+      <div class="card-image">
+        <img [src]="item.image || 'assets/chips.jpeg'" alt="{{ item.name }}">
+        <span *ngIf="item.vegetarian" class="veg-badge">VEG</span>
+      </div>
+      <div class="card-content">
+        <h3>{{ item.name }}</h3>
+        <p class="description">{{ item.description }}</p>
+        <div class="card-footer">
+          <span class="price">R{{ item.price }}</span>
+          <button 
+            (click)="openCustomizationModal(item)"
+            class="btn-customize">
+            Customize & Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customization Modal -->
+  <div *ngIf="showCustomizationModal" class="modal-overlay" (click)="closeCustomizationModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeCustomizationModal()">×</button>
+      
+      <div *ngIf="selectedItem">
+        <h2>{{ selectedItem.name }}</h2>
+        <p>{{ selectedItem.description }}</p>
+        
+        <div class="quantity-selector">
+          <label>Quantity:</label>
+          <div class="qty-controls">
+            <button (click)="decreaseQuantity()" class="qty-btn">−</button>
+            <input type="number" [(ngModel)]="quantity" [value]="quantity" min="1">
+            <button (click)="increaseQuantity()" class="qty-btn">+</button>
+          </div>
+        </div>
+
+        <div class="toppings-section">
+          <h3>Available Toppings</h3>
+          <div class="toppings-list">
+            <div *ngFor="let topping of selectedItem.toppings" class="topping-item">
+              <input 
+                type="checkbox" 
+                [id]="'topping-' + topping.id"
+                [checked]="isToppingSelected(topping)"
+                (change)="toggleTopping(topping)">
+              <label [for]="'topping-' + topping.id">
+                {{ topping.name }} 
+                <span class="topping-price">(+R{{ topping.price }})</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="custom-notes">
+          <label for="notes">Special Instructions (Optional):</label>
+          <textarea 
+            id="notes"
+            [(ngModel)]="customNotes"
+            placeholder="Add any special requests..."
+            rows="3"></textarea>
+        </div>
+
+        <div class="price-summary">
+          <div class="price-row">
+            <span>Base Price:</span>
+            <span>R{{ selectedItem.price }}</span>
+          </div>
+          <div class="price-row" *ngIf="getToppingPrice() > 0">
+            <span>Toppings:</span>
+            <span>R{{ getToppingPrice() }}</span>
+          </div>
+          <div class="price-row" *ngIf="quantity > 1">
+            <span>Quantity:</span>
+            <span>x{{ quantity }}</span>
+          </div>
+          <div class="total-price">
+            <span>Total:</span>
+            <span>R{{ getItemTotalPrice() }}</span>
+          </div>
+        </div>
+
+        <button (click)="addToCart()" class="btn-add-to-cart">
+          Add to Cart (R{{ getItemTotalPrice() }})
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shopping Cart Sidebar -->
+  <div *ngIf="cart.length > 0" class="cart-sidebar">
+    <h3>Your Cart</h3>
+    
+    <div class="cart-items">
+      <div *ngFor="let item of cart; let i = index" class="cart-item">
+        <div class="item-info">
+          <h4>{{ item.menuItem.name }}</h4>
+          <p>Qty: {{ item.quantity }} × R{{ item.menuItem.price }}</p>
+          <p *ngIf="item.selectedToppings.length > 0" class="toppings-info">
+            Toppings: {{ getToppingNames(item.selectedToppings) }}
+          </p>
+        </div>
+        <button (click)="removeFromCart(i)" class="btn-remove">Remove</button>
+      </div>
+    </div>
+
+    <div class="cart-total-section">
+      <div class="total-amount">
+        <strong>Total: R{{ getCartTotal() }}</strong>
+      </div>
+      <button (click)="proceedToCheckout()" class="btn-checkout">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+
+  <button 
+    *ngIf="cart.length > 0"
+    (click)="proceedToCheckout()"
+    class="floating-checkout">
+    Checkout (R{{ getCartTotal() }})
+  </button>
+</div>

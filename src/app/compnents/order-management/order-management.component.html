@@ -1,0 +1,243 @@
+<div class="order-management-container">
+  <div class="alerts">
+    <div *ngIf="error" class="alert alert-error">{{ error }}</div>
+    <div *ngIf="success" class="alert alert-success">{{ success }}</div>
+  </div>
+
+  <!-- Two Column Layout -->
+  <div class="order-layout">
+    <!-- Left Column: Order Details -->
+    <div class="order-details">
+      <h2>Order Summary</h2>
+      
+      <div class="cart-summary">
+        <div *ngFor="let item of cart" class="summary-item">
+          <div class="summary-item-info">
+            <h4>{{ item.menuItem.name }}</h4>
+            <p>{{ item.quantity }} x R{{ item.menuItem.price }}</p>
+            <p *ngIf="item.selectedToppings.length > 0" class="toppings">
+              + {{ getToppingNames(item.selectedToppings) }}
+            </p>
+          </div>
+          <span class="item-price">R{{ getCartItemPrice(item) }}</span>
+        </div>
+      </div>
+
+      <div class="price-breakdown">
+        <div class="breakdown-row">
+          <span>Subtotal:</span>
+          <span>R{{ getCartTotal() }}</span>
+        </div>
+        <div class="breakdown-row">
+          <span>Delivery Charges:</span>
+          <span>R0</span>
+        </div>
+        <div class="breakdown-row">
+          <span>GST (5%):</span>
+          <span>R{{ getGSTAmount() }}</span>
+        </div>
+        <div class="total-row">
+          <span>Total Amount:</span>
+          <span>R{{ getTotalAmount() }}</span>
+        </div>
+      </div>
+
+      <!-- Delivery Type Selection -->
+      <div class="section">
+        <h3>Delivery Type</h3>
+        <div class="delivery-options">
+          <button 
+            (click)="selectDeliveryType('home-delivery')"
+            [class.active]="deliveryType === 'home-delivery'"
+            class="delivery-option">
+            <span class="option-icon">🏠</span>
+            <span>Home Delivery</span>
+          </button>
+          <button 
+            (click)="selectDeliveryType('click-collect')"
+            [class.active]="deliveryType === 'click-collect'"
+            class="delivery-option">
+            <span class="option-icon">🛒</span>
+            <span>Click & Collect</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Restaurant Selection -->
+      <div class="section">
+        <h3>Select Restaurant</h3>
+        <div class="restaurants-list">
+          <div 
+            *ngFor="let restaurant of nearbyRestaurants" 
+            (click)="selectRestaurant(restaurant)"
+            [class.selected]="selectedRestaurant?.id === restaurant.id"
+            class="restaurant-card">
+            <div class="restaurant-info">
+              <h4>{{ restaurant.name }}</h4>
+              <p class="address">{{ restaurant.address }}</p>
+              <div class="restaurant-meta">
+                <span class="rating">⭐ {{ restaurant.rating }}</span>
+                <span class="distance">{{ restaurant.distance?.toFixed(1) }} km</span>
+                <span class="time">{{ restaurant.deliveryTime }} mins</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Address Section (for home delivery) -->
+      <div *ngIf="deliveryType === 'home-delivery'" class="section">
+        <h3>Delivery Address</h3>
+        <div class="address-form">
+          <input 
+            type="text" 
+            [(ngModel)]="deliveryAddress.street"
+            placeholder="Street Address"
+            class="form-input">
+          <input 
+            type="text" 
+            [(ngModel)]="deliveryAddress.city"
+            placeholder="City"
+            class="form-input">
+          <input 
+            type="text" 
+            [(ngModel)]="deliveryAddress.postalCode"
+            placeholder="Postal Code"
+            class="form-input">
+          <button (click)="updateDeliveryAddress()" class="btn-update">Update Address</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Payment -->
+    <div class="payment-section">
+      <h2>Payment</h2>
+
+      <div class="payment-methods">
+        <button 
+          (click)="selectPaymentMethod('credit-card')"
+          [class.active]="paymentMethod === 'credit-card'"
+          class="payment-method">
+          💳 Credit Card
+        </button>
+        <button 
+          (click)="selectPaymentMethod('debit-card')"
+          [class.active]="paymentMethod === 'debit-card'"
+          class="payment-method">
+          💳 Debit Card
+        </button>
+        <button 
+          (click)="selectPaymentMethod('upi')"
+          [class.active]="paymentMethod === 'upi'"
+          class="payment-method">
+          📱 UPI
+        </button>
+        <button 
+          (click)="selectPaymentMethod('digital-wallet')"
+          [class.active]="paymentMethod === 'digital-wallet'"
+          class="payment-method">
+          💰 Wallet
+        </button>
+      </div>
+
+      <!-- Card Payment -->
+      <div *ngIf="paymentMethod === 'credit-card' || paymentMethod === 'debit-card'" class="payment-form">
+        <input 
+          type="text" 
+          [(ngModel)]="paymentDetails.cardNumber"
+          placeholder="Card Number (16 digits)"
+          class="form-input"
+          maxlength="16">
+        <input 
+          type="text" 
+          [(ngModel)]="paymentDetails.cardHolder"
+          placeholder="Cardholder Name"
+          class="form-input">
+        <div class="card-row">
+          <input 
+            type="text" 
+            [(ngModel)]="paymentDetails.expiryDate"
+            placeholder="MM/YY"
+            class="form-input small">
+          <input 
+            type="text" 
+            [(ngModel)]="paymentDetails.cvv"
+            placeholder="CVV"
+            class="form-input small"
+            maxlength="4">
+        </div>
+      </div>
+
+      <!-- UPI Payment -->
+      <div *ngIf="paymentMethod === 'upi'" class="payment-form">
+        <input 
+          type="text" 
+          [(ngModel)]="upiId"
+          placeholder="UPI ID (e.g., username@upi)"
+          class="form-input">
+        <p class="info-text">Enter your registered UPI ID</p>
+      </div>
+
+      <!-- Digital Wallet -->
+      <div *ngIf="paymentMethod === 'digital-wallet'" class="payment-form">
+        <select class="form-input">
+          <option value="">Select Wallet</option>
+          <option value="google">Google Pay</option>
+          <option value="apple">Apple Pay</option>
+          <option value="phonepe">PhonePe</option>
+          <option value="paytm">Paytm</option>
+        </select>
+      </div>
+
+      <div class="order-summary-box">
+        <div class="summary-item">
+          <span>Order Amount:</span>
+          <strong>R{{ getCartTotal().toFixed(2) }}</strong>
+        </div>
+        <div class="summary-item">
+          <span>Estimated Delivery:</span>
+          <strong>{{ estimatedDeliveryTime }} mins</strong>
+        </div>
+        <div class="summary-item">
+          <span>Delivery Type:</span>
+          <strong>{{ deliveryType === 'home-delivery' ? 'Home Delivery' : 'Click & Collect' }}</strong>
+        </div>
+      </div>
+
+      <button 
+        (click)="submitOrder()"
+        [disabled]="loading"
+        class="btn-place-order">
+        {{ loading ? 'Processing...' : 'Place Order' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Orders History -->
+  <div *ngIf="orders.length > 0" class="orders-history">
+    <h2>Your Orders</h2>
+    <div class="orders-list">
+      <div *ngFor="let order of orders" class="order-card">
+        <div class="order-header">
+          <span class="order-id">Order #{{ order.id }}</span>
+          <span [class]="'status status-' + order.status">{{ order.status }}</span>
+        </div>
+        <div class="order-info">
+          <p><strong>Amount:</strong> R{{ order.totalAmount }}</p>
+          <p><strong>Delivery:</strong> {{ order.deliveryType === 'home-delivery' ? 'Home Delivery' : 'Click & Collect' }}</p>
+          <p *ngIf="order.deliveryAddress"><strong>Address:</strong> {{ order.deliveryAddress.street }}, {{ order.deliveryAddress.city }}</p>
+          <p><strong>Items:</strong> {{ order.items.length }}</p>
+        </div>
+        <div class="order-actions">
+          <button 
+            *ngIf="order.status === 'pending'"
+            (click)="cancelOrder(order.id!)"
+            class="btn-cancel">
+            Cancel Order
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
