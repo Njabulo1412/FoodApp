@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from '../../services/menu.service';
+import { CartService } from '../../services/cart.service';
 import { MenuItem, Topping, CartItem } from '../../models/menu.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -19,21 +20,27 @@ export class MenuAndCustomizationComponent implements OnInit {
   selectedToppings: Topping[] = [];
   quantity = 1;
   customNotes = '';
+  isAuthenticated = false;
 
   constructor(
     private menuService: MenuService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
-    if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['/login']);
-      return;
-    }
+    // Allow all users to view the menu. Track auth state to enable/disable actions like checkout.
+    this.isAuthenticated = this.authService.isAuthenticated();
+    this.authService.currentUser$.subscribe(user => {
+      this.isAuthenticated = !!user;
+    });
 
     this.loadMenu();
     this.loadCategories();
+    this.cartService.cart$.subscribe(items => {
+      this.cart = items;
+    });
   }
 
   loadMenu(): void {
@@ -116,23 +123,13 @@ export class MenuAndCustomizationComponent implements OnInit {
       customNotes: this.customNotes
     };
 
-    const existingItem = this.cart.findIndex(
-      item => item.menuItem.id === this.selectedItem!.id
-    );
-
-    if (existingItem > -1) {
-      this.cart[existingItem].quantity += this.quantity;
-      this.cart[existingItem].selectedToppings = [...this.selectedToppings];
-    } else {
-      this.cart.push(cartItem);
-    }
-
+    this.cartService.addToCart(cartItem);
     this.closeCustomizationModal();
     alert('Item added to cart!');
   }
 
   removeFromCart(index: number): void {
-    this.cart.splice(index, 1);
+    this.cartService.removeItem(index);
   }
 
   getCartTotal(): number {
@@ -148,7 +145,14 @@ export class MenuAndCustomizationComponent implements OnInit {
       alert('Please add items to your cart');
       return;
     }
-    this.router.navigate(['/orders'], { state: { cart: this.cart } });
+    // Require authentication before proceeding to orders/checkout
+    if (!this.authService.isAuthenticated()) {
+      // redirect to login and include returnUrl so user can come back to checkout
+      this.router.navigate(['/login'], { queryParams: { returnUrl: '/orders' } });
+      return;
+    }
+
+    this.router.navigate(['/orders']);
   }
 
   updateQuantity(newQuantity: number): void {
@@ -171,4 +175,3 @@ export class MenuAndCustomizationComponent implements OnInit {
     return toppings.map(t => t.name).join(', ');
   }
 }
-

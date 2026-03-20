@@ -72,6 +72,27 @@ export class MenuService {
         vegetarian: true,
         toppings: toppings['chips']
       }
+      ,
+      {
+        id: '4',
+        name: 'Coca-Cola (330ml)',
+        description: 'Chilled Coca-Cola soft drink',
+        price: 15,
+        category: 'Drinks',
+        image: 'assets/coca-cola-cold-drink-717.jpg',
+        vegetarian: true,
+        toppings: []
+      },
+      {
+        id: '5',
+        name: 'Magwinya',
+        description: 'Traditional deep-fried dough (Magwinya)',
+        price: 20,
+        category: 'Snacks',
+        image: 'assets/Magwinya+Recipe.webp',
+        vegetarian: true,
+        toppings: []
+      }
     ];
 
     this.menuItems$.next(menu);

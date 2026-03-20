@@ -92,52 +92,16 @@ export class LocationService {
   private initializeSampleRestaurants(): void {
     const restaurants: Restaurant[] = [
       {
-        id: '1',
-        name: 'Pizza Palace',
-        address: '123 Main Street, Delhi',
-        latitude: 28.7041,
-        longitude: 77.1025,
-        rating: 4.5,
-        openingHours: '10:00 AM - 11:00 PM',
-        cuisine: ['Pizza', 'Italian'],
-        deliveryTime: 30,
-        distance: 2.5
-      },
-      {
-        id: '2',
-        name: 'Burger Haven',
-        address: '456 Park Avenue, Delhi',
-        latitude: 28.7028,
-        longitude: 77.1122,
-        rating: 4.3,
-        openingHours: '11:00 AM - 12:00 AM',
-        cuisine: ['Burger', 'American'],
+        id: 'lollys',
+        name: "Lolly's",
+        address: 'Durban, South Africa',
+        latitude: -33.9249,
+        longitude: 18.4241,
+        rating: 5.0,
+        openingHours: '08:00 AM - 11:59 PM',
+        cuisine: ['Fast Food', 'Snacks'],
         deliveryTime: 25,
-        distance: 3.2
-      },
-      {
-        id: '3',
-        name: 'Pasta Paradise',
-        address: '789 Restaurant Row, Delhi',
-        latitude: 28.6995,
-        longitude: 77.0989,
-        rating: 4.7,
-        openingHours: '12:00 PM - 11:30 PM',
-        cuisine: ['Pasta', 'Italian'],
-        deliveryTime: 35,
-        distance: 4.1
-      },
-      {
-        id: '4',
-        name: 'Fusion Kitchen',
-        address: '321 Food Court, Delhi',
-        latitude: 28.7089,
-        longitude: 77.1067,
-        rating: 4.4,
-        openingHours: '10:30 AM - 11:00 PM',
-        cuisine: ['Pizza', 'Burger', 'Pasta'],
-        deliveryTime: 28,
-        distance: 1.8
+        distance: 2.1
       }
     ];
 

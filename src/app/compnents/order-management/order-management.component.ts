@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CartService } from '../../services/cart.service';
 import { OrderService } from '../../services/order.service';
 import { LocationService } from '../../services/location.service';
 import { PaymentService } from '../../services/payment.service';
 import { Order, OrderItem, Address } from '../../models/order.model';
 import { CartItem } from '../../models/menu.model';
 import { Restaurant } from '../../models/restaurant.model';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-order-management',
@@ -33,6 +35,7 @@ export class OrderManagementComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
+    private cartService: CartService,
     private orderService: OrderService,
     private locationService: LocationService,
     private paymentService: PaymentService
@@ -45,13 +48,12 @@ export class OrderManagementComponent implements OnInit {
       return;
     }
 
-    // Get cart from navigation state
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras?.state && navigation.extras.state['cart']) {
-      this.cart = navigation.extras.state['cart'];
-    } else {
-      this.router.navigate(['/menu']);
-    }
+    this.cartService.cart$.pipe(take(1)).subscribe(items => {
+      this.cart = items;
+      if (this.cart.length === 0) {
+        this.router.navigate(['/menu']);
+      }
+    });
 
     this.initializeLocationAndRestaurants();
     this.loadOrders();
@@ -164,9 +166,9 @@ export class OrderManagementComponent implements OnInit {
             next: (createdOrder) => {
               this.success = `Order placed successfully! Order ID: ${createdOrder.id}`;
               this.loading = false;
-              setTimeout(() => {
-                this.router.navigate(['/orders']);
-              }, 2000);
+              this.cartService.clearCart();
+              this.cart = [];
+              this.loadOrders();
             },
             error: (error) => {
               this.error = 'Failed to create order';
@@ -230,4 +232,3 @@ export class OrderManagementComponent implements OnInit {
     return (this.getCartTotal() * 1.05).toFixed(2);
   }
 }
-

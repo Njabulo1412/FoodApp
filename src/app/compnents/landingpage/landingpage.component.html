@@ -3,13 +3,13 @@
   <nav class="navbar">
     <div class="navbar-content">
       <div class="logo">
-        <h1>🍕 Lollys</h1>
+        <h1>🍕 Lolly's</h1>
         <p>Food Ordering Made Easy</p>
       </div>
       <div class="nav-buttons">
         <button *ngIf="!isAuthenticated" routerLink="/login" class="btn-nav btn-login-nav">Login</button>
         <button *ngIf="!isAuthenticated" routerLink="/register" class="btn-nav btn-register-nav">Register</button>
-        <button *ngIf="isAuthenticated" routerLink="/menu" class="btn-nav btn-order-nav">Order Now</button>
+        <button routerLink="/menu" class="btn-nav btn-order-nav">Order Now</button>
         <div *ngIf="isAuthenticated" class="user-menu">
           <span class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</span>
           <button (click)="logout()" class="btn-logout">Logout</button>
@@ -29,29 +29,92 @@
     </div>
   </section>
 
- 
-  <!-- Testimonials Section -->
-  <section class="testimonials">
-    <h2>Customer Reviews</h2>
-    
-    <div class="testimonials-grid">
-      <div class="testimonial-card">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
-        <p class="testimonial-text">"Great app! Easy to use and very fast delivery. Highly recommend!"</p>
-        <p class="testimonial-author">- Rajesh Kumar</p>
+  <section class="menu-preview">
+    <div class="menu-preview-header">
+      <div>
+        <h2>What’s Trending Today</h2>
+        <p>Hand-picked bites people love right now</p>
       </div>
+      <button (click)="goToMenu()" class="btn-primary btn-outline">
+        View the Full Menu
+      </button>
+    </div>
+    <div class="menu-grid">
+      <article class="menu-card" *ngFor="let item of menuPreview">
+        <div class="menu-card-img">
+          <img *ngIf="item.image" [src]="item.image" [alt]="item.name" />
+        </div>
+        <div class="menu-card-content">
+          <div class="menu-card-top">
+            <h3>{{ item.name }}</h3>
+            <span class="menu-price">{{ item.price | currency:'ZAR':'symbol':'1.0-0' }}</span>
+          </div>
+          <p class="menu-description">{{ item.description }}</p>
+          <div class="menu-meta">
+            <span class="menu-category">{{ item.category }}</span>
+            <span class="menu-tag" *ngIf="item.vegetarian">Vegetarian</span>
+          </div>
+          <p *ngIf="item.toppings.length" class="menu-toppings">
+            Toppings: {{ getToppingNames(item.toppings) }}
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
 
-      <div class="testimonial-card">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
-        <p class="testimonial-text">"I love the customization options. My orders are always exactly as I want them."</p>
-        <p class="testimonial-author">- Priya Singh</p>
+  <section class="testimonials reviews-section">
+    <div class="reviews-header">
+      <div>
+        <h2>Customer Reviews</h2>
+        <p>Real feedback from people enjoying Lollys. Leave your own five-star moment below.</p>
       </div>
+      <div class="review-average" *ngIf="reviews.length">
+        <strong>{{ averageRating | number:'1.1-1' }}</strong>
+        <span>avg. rating</span>
+      </div>
+    </div>
 
-      <div class="testimonial-card">
-        <div class="stars">⭐⭐⭐⭐⭐</div>
-        <p class="testimonial-text">"Click & Collect is so convenient! No more waiting at home for delivery."</p>
-        <p class="testimonial-author">- Amit Patel</p>
+    <div class="reviews-grid">
+      <div *ngFor="let review of reviews" class="review-card">
+        <div class="review-star-row">
+          <span *ngFor="let star of reviewStars" class="star" [class.filled]="star <= review.rating">★</span>
+        </div>
+        <p class="review-text">“{{ review.text }}”</p>
+        <p class="review-author">- {{ review.authorName }}</p>
       </div>
+      <p *ngIf="!reviews.length" class="no-reviews">Be the first to leave a review!</p>
+    </div>
+
+    <div class="review-form">
+      <h3>Leave a review</h3>
+      <p>Choose the stars, add a short note, and we’ll display it right here.</p>
+      <div class="star-picker">
+        <button
+          type="button"
+          *ngFor="let star of reviewStars"
+          (click)="setReviewRating(star)"
+          [class.active]="reviewRating >= star"
+          [attr.aria-label]="star + ' stars'">
+          ★
+        </button>
+      </div>
+      <input
+        type="text"
+        [(ngModel)]="reviewerName"
+        placeholder="Your name (optional)"
+        class="input-name">
+      <textarea
+        [(ngModel)]="reviewText"
+        rows="3"
+        placeholder="Tell us what you loved..."
+        class="input-text"></textarea>
+      <div class="review-messages">
+        <p *ngIf="reviewError" class="review-error">{{ reviewError }}</p>
+        <p *ngIf="reviewSuccess" class="review-success">{{ reviewSuccess }}</p>
+      </div>
+      <button type="button" (click)="submitReview()" class="btn-primary btn-review-submit">
+        Submit review
+      </button>
     </div>
   </section>
 
@@ -67,7 +130,7 @@
         <h4>Quick Links</h4>
         <ul>
           <li><a routerLink="/">Home</a></li>
-          <li><a routerLink="/menu" *ngIf="isAuthenticated">Menu</a></li>
+          <li><a routerLink="/menu">Menu</a></li>
           <li><a routerLink="/orders" *ngIf="isAuthenticated">Orders</a></li>
         </ul>
       </div>

@@ -1,6 +1,10 @@
 <div class="menu-container">
   <div class="menu-header">
     <h1>Digital Menu</h1>
+    <div *ngIf="!isAuthenticated" class="info-banner">
+      <p>You can browse the full menu before logging in. Log in to place orders and view order history.</p>
+      <button routerLink="/login" [queryParams]="{ returnUrl: '/menu' }" class="btn-login-small">Log in</button>
+    </div>
     <div class="cart-info" *ngIf="cart.length > 0">
       <span class="cart-count">{{ cart.length }}</span>
       <span class="cart-total">R{{ getCartTotal() }}</span>

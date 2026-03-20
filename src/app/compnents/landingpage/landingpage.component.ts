@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { MenuService } from '../../services/menu.service';
+import { ReviewService } from '../../services/review.service';
+import { MenuItem, Topping } from '../../models/menu.model';
+import { Review } from '../../models/review.model';
 
 @Component({
   selector: 'app-landingpage',
@@ -10,10 +14,20 @@ import { AuthService } from '../../services/auth.service';
 export class LANDINGPAGEComponent implements OnInit {
   isAuthenticated = false;
   currentUser: any = null;
+  menuPreview: MenuItem[] = [];
+  reviews: Review[] = [];
+  reviewStars = [1, 2, 3, 4, 5];
+  reviewRating = 0;
+  reviewerName = '';
+  reviewText = '';
+  reviewSuccess = '';
+  reviewError = '';
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private menuService: MenuService,
+    private reviewService: ReviewService
   ) { }
 
   ngOnInit(): void {
@@ -21,18 +35,70 @@ export class LANDINGPAGEComponent implements OnInit {
       this.currentUser = user;
       this.isAuthenticated = !!user;
     });
+
+    // Load a small preview of menu items to show on the landing page
+    this.menuService.getMenuItems().subscribe(items => {
+      this.menuPreview = items.slice(0, 4); // show up to 4 preview items
+    });
+
+    this.reviewService.getReviews().subscribe((reviewList: Review[]) => {
+      this.reviews = [...reviewList].sort((a, b) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
+    });
+  }
+
+  getToppingNames(toppings: Topping[]): string {
+    return toppings.map(topping => topping.name).join(', ');
   }
 
   goToMenu(): void {
-    if (this.isAuthenticated) {
-      this.router.navigate(['/menu']);
-    } else {
-      this.router.navigate(['/login']);
-    }
+    // Allow unauthenticated users to view the menu. They can still be prompted to login
+    // when attempting actions that require authentication (checkout, order history, etc.).
+    this.router.navigate(['/menu']);
   }
 
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/']);
+  }
+
+  setReviewRating(rating: number): void {
+    this.reviewRating = rating;
+  }
+
+  get averageRating(): number {
+    if (!this.reviews.length) {
+      return 0;
+    }
+    const total = this.reviews.reduce((sum, review) => sum + review.rating, 0);
+    return total / this.reviews.length;
+  }
+
+  submitReview(): void {
+    this.reviewError = '';
+    this.reviewSuccess = '';
+
+    if (this.reviewRating === 0) {
+      this.reviewError = 'Select how many stars you want to give.';
+      return;
+    }
+
+    if (!this.reviewText.trim()) {
+      this.reviewError = 'Add a short note about your experience.';
+      return;
+    }
+
+    this.reviewService.submitReview({
+      authorName: this.reviewerName.trim() || 'Anonymous',
+      rating: this.reviewRating,
+      text: this.reviewText.trim()
+    });
+
+    this.reviewText = '';
+    this.reviewerName = '';
+    this.reviewRating = 0;
+    this.reviewSuccess = 'Thanks for your feedback!';
+    setTimeout(() => this.reviewSuccess = '', 4000);
   }
 }
