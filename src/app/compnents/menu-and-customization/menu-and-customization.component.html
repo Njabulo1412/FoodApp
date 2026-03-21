@@ -1,48 +1,69 @@
-<div class="menu-container">
-  <div class="menu-header">
-    <h1>Digital Menu</h1>
-    <div *ngIf="!isAuthenticated" class="info-banner">
-      <p>You can browse the full menu before logging in. Log in to place orders and view order history.</p>
-      <button routerLink="/login" [queryParams]="{ returnUrl: '/menu' }" class="btn-login-small">Log in</button>
-    </div>
-    <div class="cart-info" *ngIf="cart.length > 0">
-      <span class="cart-count">{{ cart.length }}</span>
-      <span class="cart-total">R{{ getCartTotal() }}</span>
-    </div>
-  </div>
-
-  <!-- Categories -->
-  <div class="categories">
-    <button 
-      *ngFor="let category of categories"
-      (click)="filterByCategory(category)"
-      [class.active]="selectedCategory === category"
-      class="category-btn">
-      {{ category }}
-    </button>
-  </div>
-
-  <!-- Menu Items Grid -->
-  <div class="menu-grid">
-    <div *ngFor="let item of menuItems" class="menu-card">
-      <div class="card-image">
-        <img [src]="item.image || 'assets/chips.jpeg'" alt="{{ item.name }}">
-        <span *ngIf="item.vegetarian" class="veg-badge">VEG</span>
+<div class="menu-page">
+  <section class="menu-hero">
+    <div class="hero-copy">
+      <p class="badge">Chips Week</p>
+      <h1>Crunchy, golden and 100% irresistible</h1>
+      <p class="hero-description">
+        Lolly's is frying up chips classics, signature toppings and chilled drinks. Grab a hot basket for lunch or indulge with the whole crew.
+      </p>
+      <div class="hero-actions">
+        <button routerLink="/menu" class="btn-primary">Buy Now!</button>
+        <button type="button" class="btn-secondary" (click)="scrollToMenu()">View Menu</button>
       </div>
-      <div class="card-content">
-        <h3>{{ item.name }}</h3>
-        <p class="description">{{ item.description }}</p>
-        <div class="card-footer">
-          <span class="price">R{{ item.price }}</span>
-          <button 
-            (click)="openCustomizationModal(item)"
-            class="btn-customize">
-            Customize & Add
+      <div class="hero-stats">
+        <div>
+          <strong>95%</strong>
+          <span>Positive reviews</span>
+        </div>
+        <div>
+          <strong>20+</strong>
+          <span>Chefs crafting love</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="assets/chips.jpeg" alt="Lolly's chips" />
+      <span class="hero-tagline">Fresh & hot</span>
+    </div>
+  </section>
+
+  <section class="menu-highlights">
+      <div class="highlight-card" *ngFor="let highlight of [1,2,3]">
+        <h3>{{ highlight === 1 ? 'Most popular chips' : highlight === 2 ? 'Hand-cut fries' : 'Fresh & chill' }}</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Satisfy any craving with bold textures.</p>
+    </div>
+  </section>
+
+  <section class="menu-grid-wrapper">
+    <div class="section-heading">
+      <div>
+        <h2>Choose & enjoy</h2>
+        <p>Peep at what our chefs are grilling right now.</p>
+      </div>
+      <div class="banner-note">
+        <p>R5 only</p>
+        <span>Express delivery</span>
+      </div>
+    </div>
+
+    <div class="menu-grid" id="menu-grid">
+      <div *ngFor="let item of menuItems" class="menu-card">
+        <div class="card-image">
+          <img [src]="item.image || 'assets/Magwinya%2BRecipe.webp'" alt="{{ item.name }}">
+        </div>
+        <div class="card-content">
+          <div class="card-top">
+            <h3>{{ item.name }}</h3>
+            <span class="price">R{{ item.price }}</span>
+          </div>
+          <p class="description">{{ item.description }}</p>
+          <button (click)="openCustomizationModal(item)" class="btn-customize">
+            Order now
           </button>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- Customization Modal -->
   <div *ngIf="showCustomizationModal" class="modal-overlay" (click)="closeCustomizationModal()">

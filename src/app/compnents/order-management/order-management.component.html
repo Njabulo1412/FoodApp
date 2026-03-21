@@ -1,4 +1,7 @@
 <div class="order-management-container">
+  <div class="nav-controls">
+    <button class="btn-back" (click)="goBack()">← Back to menu</button>
+  </div>
   <div class="alerts">
     <div *ngIf="error" class="alert alert-error">{{ error }}</div>
     <div *ngIf="success" class="alert alert-success">{{ success }}</div>

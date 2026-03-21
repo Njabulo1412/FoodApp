@@ -1,158 +1,49 @@
+
 <div class="landing-container">
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <div class="navbar-content">
+  <div class="hero-wrapper">
+    <nav class="hero-nav">
       <div class="logo">
-        <h1>🍕 Lolly's</h1>
-        <p>Food Ordering Made Easy</p>
-      </div>
-      <div class="nav-buttons">
-        <button *ngIf="!isAuthenticated" routerLink="/login" class="btn-nav btn-login-nav">Login</button>
-        <button *ngIf="!isAuthenticated" routerLink="/register" class="btn-nav btn-register-nav">Register</button>
-        <button routerLink="/menu" class="btn-nav btn-order-nav">Order Now</button>
-        <div *ngIf="isAuthenticated" class="user-menu">
-          <span class="user-name">{{ currentUser?.firstName }} {{ currentUser?.lastName }}</span>
-          <button (click)="logout()" class="btn-logout">Logout</button>
+        <span class="logo-spark"></span>
+        <div>
+          <strong>Lolly's</strong>
+          <span>Fresh &amp; Tasty</span>
         </div>
       </div>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h2>Delicious Food Delivered to Your Doorstep</h2>
-      <p>Order from top-rated restaurants and enjoy food at your convenience</p>
-      <button (click)="goToMenu()" class="btn-primary">
-        {{ isAuthenticated ? 'Start Ordering' : 'Get Started' }}
-      </button>
-    </div>
-  </section>
-
-  <section class="menu-preview">
-    <div class="menu-preview-header">
-      <div>
-        <h2>What’s Trending Today</h2>
-        <p>Hand-picked bites people love right now</p>
+      <div class="nav-links">
+        <a routerLink="/">Home</a>
+        <a routerLink="/menu">Hot Item</a>
+        <a routerLink="/menu">Menus</a>
+        <a routerLink="/contact">Contact</a>
       </div>
-      <button (click)="goToMenu()" class="btn-primary btn-outline">
-        View the Full Menu
-      </button>
-    </div>
-    <div class="menu-grid">
-      <article class="menu-card" *ngFor="let item of menuPreview">
-        <div class="menu-card-img">
-          <img *ngIf="item.image" [src]="item.image" [alt]="item.name" />
+      <div class="nav-actions">
+        <button *ngIf="!isAuthenticated" routerLink="/login" class="link-btn">Login</button>
+        <button *ngIf="!isAuthenticated" routerLink="/register" class="link-btn">Register</button>
+        <button *ngIf="isAuthenticated" (click)="logout()" class="link-btn">Logout</button>
+        <button routerLink="/menu" class="btn-primary">Order</button>
+      </div>
+    </nav>
+
+    <div class="hero-panel">
+      <div class="hero-copy">
+        <p class="label">Delicious</p>
+        <h1>Welcome to the world of Tasty &amp; Fresh Food.</h1>
+        <p class="tagline">Quick Food, Good Taste</p>
+        <p class="description">
+          Keep it easy with these simple but delicious recipes. From make-ahead lunches and midweek meals to fuss-free sides.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-primary" routerLink="/menu">Buy Now</button>
+          <button class="btn-secondary" (click)="goToMenu()">Learn More</button>
         </div>
-        <div class="menu-card-content">
-          <div class="menu-card-top">
-            <h3>{{ item.name }}</h3>
-            <span class="menu-price">{{ item.price | currency:'ZAR':'symbol':'1.0-0' }}</span>
-          </div>
-          <p class="menu-description">{{ item.description }}</p>
-          <div class="menu-meta">
-            <span class="menu-category">{{ item.category }}</span>
-            <span class="menu-tag" *ngIf="item.vegetarian">Vegetarian</span>
-          </div>
-          <p *ngIf="item.toppings.length" class="menu-toppings">
-            Toppings: {{ getToppingNames(item.toppings) }}
-          </p>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <section class="testimonials reviews-section">
-    <div class="reviews-header">
-      <div>
-        <h2>Customer Reviews</h2>
-        <p>Real feedback from people enjoying Lollys. Leave your own five-star moment below.</p>
-      </div>
-      <div class="review-average" *ngIf="reviews.length">
-        <strong>{{ averageRating | number:'1.1-1' }}</strong>
-        <span>avg. rating</span>
-      </div>
-    </div>
-
-    <div class="reviews-grid">
-      <div *ngFor="let review of reviews" class="review-card">
-        <div class="review-star-row">
-          <span *ngFor="let star of reviewStars" class="star" [class.filled]="star <= review.rating">★</span>
-        </div>
-        <p class="review-text">“{{ review.text }}”</p>
-        <p class="review-author">- {{ review.authorName }}</p>
-      </div>
-      <p *ngIf="!reviews.length" class="no-reviews">Be the first to leave a review!</p>
-    </div>
-
-    <div class="review-form">
-      <h3>Leave a review</h3>
-      <p>Choose the stars, add a short note, and we’ll display it right here.</p>
-      <div class="star-picker">
-        <button
-          type="button"
-          *ngFor="let star of reviewStars"
-          (click)="setReviewRating(star)"
-          [class.active]="reviewRating >= star"
-          [attr.aria-label]="star + ' stars'">
-          ★
-        </button>
-      </div>
-      <input
-        type="text"
-        [(ngModel)]="reviewerName"
-        placeholder="Your name (optional)"
-        class="input-name">
-      <textarea
-        [(ngModel)]="reviewText"
-        rows="3"
-        placeholder="Tell us what you loved..."
-        class="input-text"></textarea>
-      <div class="review-messages">
-        <p *ngIf="reviewError" class="review-error">{{ reviewError }}</p>
-        <p *ngIf="reviewSuccess" class="review-success">{{ reviewSuccess }}</p>
-      </div>
-      <button type="button" (click)="submitReview()" class="btn-primary btn-review-submit">
-        Submit review
-      </button>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h4>Lollys</h4>
-        <p>Your favorite food ordering app</p>
-      </div>
-      
-      <div class="footer-section">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a routerLink="/">Home</a></li>
-          <li><a routerLink="/menu">Menu</a></li>
-          <li><a routerLink="/orders" *ngIf="isAuthenticated">Orders</a></li>
-        </ul>
-      </div>
-      
-      <div class="footer-section">
-        <h4>Contact</h4>
-        <p>Email: support@lollys.com</p>
-        <p>Phone: 1-800-LOLLYS</p>
-      </div>
-
-      <div class="footer-section">
-        <h4>Follow us</h4>
-        <div class="social-links">
-          <a href="#">Facebook</a>
-          <a href="#">Twitter</a>
-          <a href="#">Instagram</a>
+        <div class="search-bar">
+          <input type="text" placeholder="Search, Burger" />
+          <button type="button">Search</button>
         </div>
       </div>
+      <div class="hero-illustration">
+        <img src="assets/chips.jpeg" alt="Chips stack" />
+        <span class="note"></span>
+      </div>
     </div>
-    
-    <div class="footer-bottom">
-      <p>&copy; 2026 Lollys. All rights reserved.</p>
-    </div>
-  </footer>
+  </div>
 </div>

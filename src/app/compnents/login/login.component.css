@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
   padding: 20px;
 }
 
@@ -47,7 +47,7 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--primary-color);
 }
 
 .form-group input.is-invalid {
@@ -78,7 +78,7 @@
 .btn-login {
   width: 100%;
   padding: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
   color: white;
   border: none;
   border-radius: 5px;
@@ -106,7 +106,7 @@
 }
 
 .register-link a {
-  color: #667eea;
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: 600;
 }

@@ -140,6 +140,13 @@ export class MenuAndCustomizationComponent implements OnInit {
     }, 0);
   }
 
+  scrollToMenu(): void {
+    const section = document.getElementById('menu-grid');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
   proceedToCheckout(): void {
     if (this.cart.length === 0) {
       alert('Please add items to your cart');
@@ -153,6 +160,11 @@ export class MenuAndCustomizationComponent implements OnInit {
     }
 
     this.router.navigate(['/orders']);
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 
   updateQuantity(newQuantity: number): void {

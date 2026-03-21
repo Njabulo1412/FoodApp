@@ -231,4 +231,8 @@ export class OrderManagementComponent implements OnInit {
   getTotalAmount(): string {
     return (this.getCartTotal() * 1.05).toFixed(2);
   }
+
+  goBack(): void {
+    this.router.navigate(['/menu']);
+  }
 }
