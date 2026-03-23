@@ -44,9 +44,6 @@ export class LANDINGPAGEComponent implements OnInit {
     this.menuService.getMenuItems().subscribe(items => {
       this.allMenuItems = items;
       this.menuPreview = items.slice(0, 4);
-      if (items.length > 0) {
-        this.quickOrderItemId = items[0].id;
-      }
     });
 
     this.reviewService.getReviews().subscribe((reviewList: Review[]) => {
