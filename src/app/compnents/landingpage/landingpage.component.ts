@@ -22,12 +22,16 @@ export class LANDINGPAGEComponent implements OnInit {
   reviewText = '';
   reviewSuccess = '';
   reviewError = '';
-
+  heroSearchTerm = '';
+  heroSearchResults: MenuItem[] = [];
+  allMenuItems: MenuItem[] = [];
+  heroSearchSearched = false;
+  heroSearchMessage = '';
   constructor(
     private authService: AuthService,
     private router: Router,
     private menuService: MenuService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
   ) { }
 
   ngOnInit(): void {
@@ -36,9 +40,13 @@ export class LANDINGPAGEComponent implements OnInit {
       this.isAuthenticated = !!user;
     });
 
-    // Load a small preview of menu items to show on the landing page
+    // Load full menu and keep a small preview
     this.menuService.getMenuItems().subscribe(items => {
-      this.menuPreview = items.slice(0, 4); // show up to 4 preview items
+      this.allMenuItems = items;
+      this.menuPreview = items.slice(0, 4);
+      if (items.length > 0) {
+        this.quickOrderItemId = items[0].id;
+      }
     });
 
     this.reviewService.getReviews().subscribe((reviewList: Review[]) => {
@@ -101,4 +109,25 @@ export class LANDINGPAGEComponent implements OnInit {
     this.reviewSuccess = 'Thanks for your feedback!';
     setTimeout(() => this.reviewSuccess = '', 4000);
   }
+
+  searchHeroMenu(): void {
+    this.heroSearchSearched = true;
+    this.heroSearchMessage = '';
+    const term = this.heroSearchTerm.trim().toLowerCase();
+    if (!term) {
+      this.heroSearchResults = [];
+      this.heroSearchMessage = 'Search the full menu by typing something above.';
+      return;
+    }
+
+    this.heroSearchResults = this.allMenuItems.filter(item => {
+      const searchable = `${item.name} ${item.description} ${item.category}`.toLowerCase();
+      return searchable.includes(term);
+    });
+
+    if (!this.heroSearchResults.length) {
+      this.heroSearchMessage = `No menu items match “${this.heroSearchTerm.trim()}”. Try another keyword.`;
+    }
+  }
+
 }

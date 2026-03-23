@@ -1,0 +1,55 @@
+.terms-page {
+  min-height: 100vh;
+  background: #fef7f5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 1rem 3rem;
+}
+
+.terms-card {
+  max-width: 720px;
+  width: 100%;
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem;
+}
+
+.terms-card header {
+  margin-bottom: 2rem;
+}
+
+.terms-card .eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.3rem;
+  font-size: 0.75rem;
+  color: #d23b2e;
+  margin-bottom: 0.5rem;
+}
+
+.terms-card h1 {
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.terms-card .subtitle {
+  color: #5a5a5a;
+}
+
+.terms-card ol {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.terms-card li h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.terms-card li p {
+  margin: 0.25rem 0 0;
+  color: #4c4c4c;
+}

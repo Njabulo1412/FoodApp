@@ -1,49 +1,134 @@
-
-<div class="landing-container">
-  <div class="hero-wrapper">
-    <nav class="hero-nav">
-      <div class="logo">
-        <span class="logo-spark"></span>
-        <div>
-          <strong>Lolly's</strong>
-          <span>Fresh &amp; Tasty</span>
-        </div>
+<div class="landing-page">
+  <div class="page-shell">
+    <nav class="navbar">
+      <div class="brand">
+        <span class="brand-name">Lolly’s</span>
       </div>
       <div class="nav-links">
-        <a routerLink="/">Home</a>
-        <a routerLink="/menu">Hot Item</a>
-        <a routerLink="/menu">Menus</a>
-        <a routerLink="/contact">Contact</a>
+        <a href="#home">Home</a>
+        <a href="#hot-items">Hot Items</a>
+        <a href="#menu">Menu</a>
+        <a routerLink="/vision">Vision</a>
+        <a href="#contact">Contact</a>
       </div>
       <div class="nav-actions">
-        <button *ngIf="!isAuthenticated" routerLink="/login" class="link-btn">Login</button>
-        <button *ngIf="!isAuthenticated" routerLink="/register" class="link-btn">Register</button>
-        <button *ngIf="isAuthenticated" (click)="logout()" class="link-btn">Logout</button>
-        <button routerLink="/menu" class="btn-primary">Order</button>
+        <button *ngIf="!isAuthenticated" routerLink="/login" class="btn-link">Login</button>
+        <button *ngIf="!isAuthenticated" routerLink="/register" class="btn-link">Register</button>
+        <button *ngIf="isAuthenticated" (click)="logout()" class="btn-link">Logout</button>
       </div>
     </nav>
 
-    <div class="hero-panel">
+    <section class="hero" id="home">
       <div class="hero-copy">
-        <p class="label">Delicious</p>
+        <p class="hero-label">Welcome to</p>
         <h1>Welcome to the world of Tasty &amp; Fresh Food.</h1>
-        <p class="tagline">Quick Food, Good Taste</p>
-        <p class="description">
+        <p class="hero-subtitle">
           Keep it easy with these simple but delicious recipes. From make-ahead lunches and midweek meals to fuss-free sides.
         </p>
+        <div class="hero-search">
+          <label class="sr-only" for="hero-search">Search menu</label>
+          <input id="hero-search" type="text" placeholder="Search, Burger" [(ngModel)]="heroSearchTerm" />
+          <button type="button" (click)="searchHeroMenu()">Search</button>
+        </div>
         <div class="hero-actions">
-          <button class="btn-primary" routerLink="/menu">Buy Now</button>
-          <button class="btn-secondary" (click)="goToMenu()">Learn More</button>
-        </div>
-        <div class="search-bar">
-          <input type="text" placeholder="Search, Burger" />
-          <button type="button">Search</button>
+          <button class="btn-primary" routerLink="/menu">Order Now</button>
+          <a class="btn-secondary" href="#contact">Find Us</a>
+          <a class="btn-secondary" routerLink="/crm">CRM</a>
         </div>
       </div>
-      <div class="hero-illustration">
-        <img src="assets/chips.jpeg" alt="Chips stack" />
-        <span class="note"></span>
+      <div class="hero-search-results" *ngIf="heroSearchSearched">
+        <h3>Menu search</h3>
+        <div *ngIf="heroSearchResults.length; else noresult" class="search-results-grid">
+          <article *ngFor="let item of heroSearchResults">
+            <p class="category">{{ item.category }}</p>
+            <h4>{{ item.name }}</h4>
+            <p>{{ item.description }}</p>
+            <p class="price">R {{ item.price.toFixed(2) }}</p>
+          </article>
+        </div>
+        <ng-template #noresult>
+          <p class="helper-text">{{ heroSearchMessage }}</p>
+        </ng-template>
       </div>
-    </div>
+      <div class="hero-visual">
+        <div class="hero-image-wrapper">
+          <img src="assets/wings.jpg" alt="Stacked burger" />
+          <span class="hero-tagline">Image not included</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="hot-items" id="hot-items">
+      <div class="section-header">
+        <p>🔥 HOT ITEMS</p>
+        <h2>What crowds keep asking for on Uber Eats</h2>
+      </div>
+      <div class="item-grid">
+        <article>
+          <h3>Kota</h3>
+          <p>The South African split roll packed with chips, curry, salad and saucy vibes.</p>
+        </article>
+        <article>
+          <h3>Beef Curry</h3>
+          <p>Slow-simmered Durban curry with tender beef, toasted spices and fresh roti sides.</p>
+        </article>
+        <article>
+          <h3>Wings &amp; Chips</h3>
+          <p>Double-fired wings dressed in chilli glaze plus perfectly seasoned fries.</p>
+        </article>
+        <article>
+          <h3>Gwinya &amp; Polony</h3>
+          <p>Crispy gwinya loaf paired with polony rolls — a classic treat from the kasi.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="menu-preview" id="menu">
+      <div>
+        <p>📋 MENU PREVIEW</p>
+        <h2>Choose your lane</h2>
+        <p>Combos, burgers, rolls, and wings organised so you can order in seconds.</p>
+      </div>
+      <div class="menu-categories">
+        <a routerLink="/gwinya-combos">Gwinya Combos</a>
+        <a routerLink="/zulu-burgers">Zulu Burgers</a>
+        <a routerLink="/kota-menu">Kota Menu</a>
+        <a routerLink="/wings">Wings</a>
+        <a routerLink="/rolls">Rolls</a>
+      </div>
+    </section>
+
+    <section class="info-grid">
+      <div>
+        <h3>📍 Quick Links</h3>
+        <ul>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/vision">Vision &amp; Mission</a></li>
+          <li><a href="#contact">Location</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>⚖️ Legal</h3>
+        <ul>
+          <li><a href="/terms">Terms &amp; Conditions</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div>
+        <p class="small-label">📞 Contact</p>
+        <a href="tel:0746751098" class="contact-link">074 675 1098</a>
+        <p class="contact-address">Durban — Anton Lembede Street</p>
+      </div>
+      <div>
+        <p class="small-label">Social</p>
+        <div class="social-links">
+          <a href="https://wa.me/27746751098" target="_blank" rel="noreferrer">WhatsApp</a>
+          <a href="https://instagram.com/lollysfastfood" target="_blank" rel="noreferrer">Instagram</a>
+        </div>
+      </div>
+    </section>
   </div>
 </div>

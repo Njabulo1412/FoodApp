@@ -1,0 +1,17 @@
+<div class="category-page">
+  <h1>Kota Menu</h1>
+  <p class="lead">South African k near-perfect loaded corners.</p>
+  <div class="kota-grid">
+    <article *ngFor="let kota of kotas" class="kota-card" tabindex="0" role="button" routerLink="/rolls">
+      <div class="kota-image">
+        <img [src]="kota.image" [alt]="kota.name" />
+      </div>
+      <header>
+        <h2>{{ kota.name }}</h2>
+        <span class="price">R {{ kota.price }}</span>
+      </header>
+      <p class="description">{{ kota.description }}</p>
+      <p class="rating" *ngIf="kota.rating">{{ kota.rating }}</p>
+    </article>
+  </div>
+</div>

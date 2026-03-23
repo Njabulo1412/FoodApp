@@ -1,0 +1,15 @@
+<div class="terms-page">
+  <section class="terms-card">
+    <header>
+      <p class="eyebrow">⚖️ Legal</p>
+      <h1>Terms &amp; Conditions</h1>
+      <p class="subtitle">Everything you agree to when ordering from Lolly’s Food Joint.</p>
+    </header>
+    <ol>
+      <li *ngFor="let term of terms">
+        <h3>{{ term.title }}</h3>
+        <p>{{ term.description }}</p>
+      </li>
+    </ol>
+  </section>
+</div>

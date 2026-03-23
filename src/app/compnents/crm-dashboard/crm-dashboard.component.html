@@ -1,0 +1,105 @@
+<div class="crm-page">
+  <aside class="crm-sidebar">
+    <div class="logo">CRM</div>
+    <nav aria-label="CRM navigation">
+      <button type="button" [ngClass]="{ active: selectedSection === 'orders' }" (click)="setSection('orders')">Orders</button>
+      <button type="button" [ngClass]="{ active: selectedSection === 'customers' }" (click)="setSection('customers')">Customers</button>
+      <button type="button" [ngClass]="{ active: selectedSection === 'reports' }" (click)="setSection('reports')">Reports</button>
+    </nav>
+  </aside>
+  <section class="crm-main">
+    <header class="crm-topbar">
+      <div class="search">
+        <input
+          type="search"
+          placeholder="Search orders, customers..."
+          [(ngModel)]="crmSearchTerm"
+          (keyup.enter)="applyCrmSearch()" />
+        <button type="button" (click)="applyCrmSearch()">Search</button>
+      </div>
+      <div class="top-actions">
+        <button>Refresh</button>
+      </div>
+    </header>
+    <div class="kpi-grid">
+      <article *ngFor="let kpi of kpis">
+        <p class="label">{{ kpi.label }}</p>
+        <p class="value">{{ kpi.value }}</p>
+        <p class="change">{{ kpi.change }}</p>
+      </article>
+    </div>
+    <div *ngIf="selectedSection === 'orders'" class="table-card">
+      <div class="table-header">
+        <h2>Live Orders</h2>
+        <div class="filters">
+          <button>Today</button>
+          <button>Complete</button>
+          <button>Filter</button>
+        </div>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Customer</th>
+            <th>Total</th>
+            <th>Delivery</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of filteredOrders">
+            <td>{{ order.id }}</td>
+            <td>{{ order.customer }}</td>
+            <td>{{ order.total }}</td>
+            <td>{{ order.delivery }}</td>
+            <td>
+              <span class="badge" [ngClass]="{
+                'in-progress': order.status === 'In progress',
+                ready: order.status === 'Ready',
+                completed: order.status === 'Completed',
+                cancelled: order.status === 'Cancelled'
+              }">{{ order.status }}</span>
+            </td>
+            <td>
+              <button class="ghost">View</button>
+              <button class="ghost">Assign</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="selectedSection === 'customers'" class="list-panels single-panel">
+      <article class="panel">
+        <header>
+          <h3>Customer list</h3>
+          <p>Active guests &amp; loyalty status.</p>
+        </header>
+        <ul>
+          <li *ngFor="let customer of filteredCustomers">
+            <span>{{ customer.name }}</span>
+            <small>{{ customer.orders }} orders · {{ customer.status }}</small>
+          </li>
+        </ul>
+      </article>
+    </div>
+    <div *ngIf="selectedSection === 'reports'" class="list-panels single-panel">
+      <article class="panel">
+        <header>
+          <h3>Reports</h3>
+          <p>Executive-ready insights.</p>
+        </header>
+        <ul>
+          <li *ngFor="let report of filteredReports">
+            <strong>{{ report.title }}</strong>
+            <span>{{ report.description }}</span>
+          </li>
+        </ul>
+      </article>
+    </div>
+    <footer class="auth-note">
+      <p>Secure auth &mdash; passwords stored hashed, roles scoped per kitchen.</p>
+    </footer>
+  </section>
+</div>

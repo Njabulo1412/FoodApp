@@ -4,6 +4,7 @@ import { CartService } from '../../services/cart.service';
 import { MenuItem, Topping, CartItem } from '../../models/menu.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { GWINYA_COMBOS, KOTAS, ROLLS_MENU, WINGS_MENU, ZULU_BURGERS } from '../../data/menu-categories';
 
 @Component({
   selector: 'app-menu-and-customization',
@@ -13,6 +14,85 @@ import { AuthService } from '../../services/auth.service';
 export class MenuAndCustomizationComponent implements OnInit {
   menuItems: MenuItem[] = [];
   categories: string[] = [];
+  gwinyaCombos = GWINYA_COMBOS;
+  dailySpecials = [
+    {
+      name: 'Beef Curry',
+      price: '81,00',
+      rating: '80% (5)',
+      description: 'Tender beef slow cooked in a rich and flavourful curry sauce. Served with your choice of rice or traditional phuthu.'
+    },
+    {
+      name: 'Chicken Curry',
+      price: '81,00',
+      rating: '',
+      description: 'Tender chicken cooked in a fragrant and spiced curry sauce. Served with your choice of rice or traditional phuthu.'
+    }
+  ];
+  zuluBurgers = ZULU_BURGERS;
+  kotas = KOTAS;
+  rollItems = ROLLS_MENU;
+  extras = [
+    {
+      name: 'Polony',
+      price: '3,00',
+      rating: '80% (5)',
+      description: 'Sliced polony, a bologna-style sausage.'
+    },
+    {
+      name: 'Cheese',
+      price: '4,00',
+      rating: '100% (7)',
+      description: 'Add cheese as a topping or filling.'
+    },
+    {
+      name: 'Vienna',
+      price: '4,00',
+      rating: '100% (4)',
+      description: 'Frankfurter-style Vienna sausage.'
+    },
+    {
+      name: 'Chilli Russian',
+      price: '22,00',
+      rating: '75% (4)',
+      description: 'Spicy'
+    },
+    {
+      name: 'Cheese Russian',
+      price: '29,00',
+      rating: '75% (4)',
+      description: ''
+    }
+  ];
+  softDrinks = [
+    { size: '330ml', format: 'Can', price: 'R12 – R15' },
+    { size: '440ml', format: 'Can', price: 'R15 – R18' },
+    { size: '500ml', format: 'Bottle', price: 'R15 – R20' },
+    { size: '1L', format: 'Bottle', price: 'R20 – R25' },
+    { size: '1.5L', format: 'Bottle', price: 'R25 – R30' },
+    { size: '2L', format: 'Bottle', price: 'R30 – R35' }
+  ];
+  crmBoard = {
+    title: 'CRM Board (Live)',
+    displays: ['User', 'Total price', 'Delivery type'],
+    description: 'Updates instantly when new orders arrive so staff always see what is in flight.'
+  };
+  waterSizes = [
+    { size: '330ml', price: 'R8 – R10' },
+    { size: '500ml', price: 'R10 – R15' },
+    { size: '1L', price: 'R15 – R18' },
+    { size: '1.5L', price: 'R18 – R22' }
+  ];
+  slushySizes = [
+    { size: 'Small', price: 'R10 – R15' },
+    { size: 'Medium', price: 'R15 – R20' },
+    { size: 'Large', price: 'R20 – R25' }
+  ];
+  hotDrinks = [
+    { name: 'Coffee', small: 'R10', medium: 'R12', large: 'R15' },
+    { name: 'Hot Chocolate', small: 'R12', medium: 'R15', large: 'R18' },
+    { name: 'Milo', small: 'R12', medium: 'R15', large: 'R18' }
+  ];
   selectedCategory: string = '';
   cart: CartItem[] = [];
   selectedItem: MenuItem | null = null;

@@ -27,10 +27,226 @@
     </div>
   </section>
 
-  <section class="menu-highlights">
-      <div class="highlight-card" *ngFor="let highlight of [1,2,3]">
-        <h3>{{ highlight === 1 ? 'Most popular chips' : highlight === 2 ? 'Hand-cut fries' : 'Fresh & chill' }}</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Satisfy any craving with bold textures.</p>
+  <div class="category-links">
+    <a routerLink="/gwinya-combos">Gwinya Combos</a>
+    <a routerLink="/zulu-burgers">Zulu Burgers</a>
+    <a routerLink="/kota-menu">Kota Menu</a>
+    <a routerLink="/wings">Wings</a>
+    <a routerLink="/rolls">Rolls</a>
+  </div>
+
+  <section class="gwinya-section">
+    <div class="section-heading">
+      <div>
+        <h2>Gwinya Combos</h2>
+        <p>A crispy vetkoek line-up stacked with cheese, polony, chips and more kasi classics.</p>
+      </div>
+      <span class="section-note">Fresh daily</span>
+    </div>
+      <div class="combo-grid">
+        <article *ngFor="let combo of gwinyaCombos">
+          <div class="combo-image" *ngIf="combo.image">
+            <img [src]="combo.image" [alt]="combo.name" />
+          </div>
+          <header>
+            <h3>{{ combo.name }}</h3>
+            <span class="combo-price">R {{ combo.price }}</span>
+          </header>
+        <p class="combo-rating" *ngIf="combo.rating">
+          {{ combo.rating }}
+        </p>
+        <p class="combo-description">
+          {{ combo.description }}
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="daily-specials">
+    <div class="section-heading">
+      <div>
+        <h2>Daily Special Meals</h2>
+        <p>House curried favourites served hot with rice or phuthu.</p>
+      </div>
+      <span class="section-note">Limited</span>
+    </div>
+    <div class="combo-grid">
+      <article *ngFor="let special of dailySpecials">
+        <header>
+          <h3>{{ special.name }}</h3>
+          <span class="combo-price">R {{ special.price }}</span>
+        </header>
+        <p class="combo-rating" *ngIf="special.rating">
+          {{ special.rating }}
+        </p>
+        <p class="combo-description">
+          {{ special.description }}
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="zulu-section">
+    <div class="section-heading">
+      <div>
+        <h2>Zulu Burger Combos</h2>
+        <p>Street-now flavors layered inside chewy gwinya bread.</p>
+      </div>
+      <span class="section-note">Kasi favourite</span>
+    </div>
+    <div class="combo-grid">
+      <article *ngFor="let combo of zuluBurgers">
+        <div class="combo-image" *ngIf="combo.image">
+          <img [src]="combo.image" [alt]="combo.name" />
+        </div>
+        <header>
+          <h3>{{ combo.name }}</h3>
+          <span class="combo-price">R {{ combo.price }}</span>
+        </header>
+        <p class="combo-rating" *ngIf="combo.rating">
+          {{ combo.rating }}
+        </p>
+        <p class="combo-description">
+          {{ combo.description }}
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="kota-section">
+    <div class="section-heading">
+      <div>
+        <h2>Kotas Menu</h2>
+        <p>The city’s beefiest sandwiches loaded with everything from atchar to eggs and burgers.</p>
+      </div>
+      <span class="section-note">Stacked</span>
+    </div>
+      <div class="combo-grid kota-grid">
+        <article *ngFor="let kota of kotas">
+          <div class="kota-image">
+            <img [src]="kota.image" [alt]="kota.name" />
+          </div>
+          <header>
+            <h3>{{ kota.name }}</h3>
+            <span class="combo-price">R {{ kota.price }}</span>
+          </header>
+        <p class="combo-rating" *ngIf="kota.rating">
+          {{ kota.rating }}
+        </p>
+        <p class="combo-description">
+          {{ kota.description }}
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="roll-section">
+    <div class="section-heading">
+      <div>
+        <h2>Rolls</h2>
+        <p>Quick roll-ups that keep the steam and sauce locked tight.</p>
+      </div>
+      <span class="section-note">Handheld</span>
+    </div>
+    <div class="combo-grid">
+      <article *ngFor="let roll of rollItems">
+        <header>
+          <h3>{{ roll.name }}</h3>
+          <span class="combo-price">R {{ roll.price }}</span>
+        </header>
+        <p class="combo-description">
+          {{ roll.description }}
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="extras-section">
+    <div class="section-heading">
+      <div>
+        <h2>Extras</h2>
+        <p>Build your kota, rolls, or combos exactly the way you love them.</p>
+      </div>
+      <span class="section-note">Add-on</span>
+    </div>
+    <div class="extras-grid">
+      <div class="extra-list">
+        <article *ngFor="let extra of extras">
+          <header>
+            <h3>{{ extra.name }}</h3>
+            <span class="combo-price">R {{ extra.price }}</span>
+          </header>
+          <p class="combo-rating" *ngIf="extra.rating">
+            {{ extra.rating }}
+          </p>
+          <p class="combo-description">
+            {{ extra.description }}
+          </p>
+        </article>
+      </div>
+      <div class="extras-side">
+        <div class="crm-card">
+          <h3>{{ crmBoard.title }}</h3>
+          <p>{{ crmBoard.description }}</p>
+          <ul>
+            <li *ngFor="let display of crmBoard.displays">{{ display }}</li>
+          </ul>
+          <a routerLink="/crm" class="link-btn">Go to CRM page</a>
+        </div>
+        <div class="soft-drinks-card">
+          <div class="drink-visual">
+            <img src="assets/coca-cola-cold-drink-717.jpg" alt="Soft drinks" />
+          </div>
+          <h3>Soft drinks</h3>
+          <div class="soft-drinks-table">
+            <div class="table-row table-header">
+              <span>Size</span>
+              <span>Format</span>
+              <span>Price</span>
+            </div>
+            <div class="table-row" *ngFor="let drink of softDrinks">
+              <span>{{ drink.size }}</span>
+              <span>{{ drink.format }}</span>
+              <span>{{ drink.price }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="water-card">
+          <h3>Water</h3>
+          <div class="drink-rows">
+            <div class="drink-row" *ngFor="let water of waterSizes">
+              <span>{{ water.size }}</span>
+              <span>{{ water.price }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="slushy-card">
+          <h3>Slushy</h3>
+          <div class="drink-rows">
+            <div class="drink-row" *ngFor="let slushy of slushySizes">
+              <span>{{ slushy.size }}</span>
+              <span>{{ slushy.price }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="hot-drinks-card">
+          <h3>Hot drinks</h3>
+          <div class="drink-grid">
+            <div class="drink-row drink-header">
+              <span>Drink</span>
+              <span>Small</span>
+              <span>Medium</span>
+              <span>Large</span>
+            </div>
+            <div class="drink-row" *ngFor="let drink of hotDrinks">
+              <span>{{ drink.name }}</span>
+              <span>{{ drink.small }}</span>
+              <span>{{ drink.medium }}</span>
+              <span>{{ drink.large }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 

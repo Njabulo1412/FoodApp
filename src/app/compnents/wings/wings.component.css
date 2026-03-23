@@ -1,0 +1,74 @@
+.category-page {
+  padding: 32px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.category-page h1 {
+  margin-bottom: 10px;
+  color: #d1442b;
+}
+
+.category-hero {
+  width: 100%;
+  max-width: 520px;
+  margin-bottom: 16px;
+  
+}
+
+.category-hero img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 25px 35px rgba(0, 0, 0, 0.15);
+}
+
+.lead {
+  margin-bottom: 24px;
+  color: #3c3c3c;
+}
+
+.combo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 26px;
+}
+
+.combo-grid article {
+  background: #fff5ef;
+  border-radius: 28px;
+  padding: 24px;
+  border: 1px solid #f2c8b3;
+  min-height: 240px;
+  box-shadow: 0 30px 45px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.combo-grid article header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.combo-grid h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #2f1a0b;
+}
+
+.price {
+  font-weight: 700;
+  color: #e01d1d;
+}
+
+.description {
+  margin: 0;
+  color: #5b4a3f;
+  font-size: 1rem;
+}
+
+.rating {
+  font-size: 0.85rem;
+  color: #a8491d;
+}

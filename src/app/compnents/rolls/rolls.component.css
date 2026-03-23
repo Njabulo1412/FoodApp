@@ -1,0 +1,77 @@
+.category-page {
+  padding: 32px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.category-page h1 {
+  margin-bottom: 10px;
+  color: #d1442b;
+}
+
+.category-hero {
+  width: 100%;
+  max-width: 520px;
+  margin-bottom: 16px;
+}
+
+.category-hero img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 25px 35px rgba(0, 0, 0, 0.15);
+}
+
+.lead {
+  margin-bottom: 24px;
+  color: #3c3c3c;
+}
+
+.kota-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+
+.kota-grid article {
+  padding: 20px;
+  border-radius: 18px;
+  background: #fff8f3;
+  border: 1px solid #f0d1b6;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+}
+
+.kota-image {
+  height: 160px;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.kota-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.kota-grid header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.price {
+  font-weight: 700;
+  color: #e01d1d;
+}
+
+.description {
+  color: #5b4a3f;
+  margin-bottom: 8px;
+}
+
+.rating {
+  font-size: 0.85rem;
+  color: #a8491d;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}

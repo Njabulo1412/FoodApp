@@ -1,0 +1,20 @@
+<div class="category-page">
+  <div class="category-hero">
+    <img src="assets/wings.jpg" alt="Wings platter" />
+  </div>
+  <h1>Wings</h1>
+  <p class="lead">Choose your heat and sauce style.</p>
+  <div class="combo-grid">
+    <article *ngFor="let wing of wings">
+      <div class="combo-image" *ngIf="wing.image">
+        <img [src]="wing.image" [alt]="wing.name" />
+      </div>
+      <header>
+        <h2>{{ wing.name }}</h2>
+        <span class="price">R {{ wing.price }}</span>
+      </header>
+      <p class="description">{{ wing.description }}</p>
+      <p class="rating" *ngIf="wing.rating">{{ wing.rating }}</p>
+    </article>
+  </div>
+</div>

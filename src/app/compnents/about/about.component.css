@@ -1,0 +1,47 @@
+.about-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  font-family: 'Inter', sans-serif;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  margin-bottom: 16px;
+  color: #e01d1d;
+}
+
+.hero p {
+  color: #3c3c3c;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.mission,
+.vision,
+.terms {
+  background: #fff;
+  border-radius: 26px;
+  padding: 28px;
+  margin-top: 32px;
+  border: 1px solid rgba(189, 54, 54, 0.321);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+}
+
+.mission ul {
+  list-style: disc;
+  padding-left: 20px;
+  margin-top: 12px;
+  color: #3c3c3c;
+}
+
+.terms ol {
+  margin-top: 12px;
+  padding-left: 20px;
+  color: #3c3c3c;
+  line-height: 1.7;
+}
+
+.terms strong {
+  color: #c0392b;
+}
