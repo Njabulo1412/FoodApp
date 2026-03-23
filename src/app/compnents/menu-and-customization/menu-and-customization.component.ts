@@ -4,7 +4,8 @@ import { CartService } from '../../services/cart.service';
 import { MenuItem, Topping, CartItem } from '../../models/menu.model';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { GWINYA_COMBOS, KOTAS, ROLLS_MENU, WINGS_MENU, ZULU_BURGERS } from '../../data/menu-categories';
+import { GWINYA_COMBOS, KOTAS, ROLLS_MENU, WINGS_MENU, ZULU_BURGERS, DAILY_SPECIALS, MenuCard } from '../../data/menu-categories';
+import { menuCardToMenuItem } from '../../utils/menu-card-utils';
 
 @Component({
   selector: 'app-menu-and-customization',
@@ -15,20 +16,7 @@ export class MenuAndCustomizationComponent implements OnInit {
   menuItems: MenuItem[] = [];
   categories: string[] = [];
   gwinyaCombos = GWINYA_COMBOS;
-  dailySpecials = [
-    {
-      name: 'Beef Curry',
-      price: '81,00',
-      rating: '80% (5)',
-      description: 'Tender beef slow cooked in a rich and flavourful curry sauce. Served with your choice of rice or traditional phuthu.'
-    },
-    {
-      name: 'Chicken Curry',
-      price: '81,00',
-      rating: '',
-      description: 'Tender chicken cooked in a fragrant and spiced curry sauce. Served with your choice of rice or traditional phuthu.'
-    }
-  ];
+  dailySpecials = DAILY_SPECIALS;
   zuluBurgers = ZULU_BURGERS;
   kotas = KOTAS;
   rollItems = ROLLS_MENU;
@@ -37,31 +25,36 @@ export class MenuAndCustomizationComponent implements OnInit {
       name: 'Polony',
       price: '3,00',
       rating: '80% (5)',
-      description: 'Sliced polony, a bologna-style sausage.'
+      description: 'Sliced polony, a bologna-style sausage.',
+      image: 'assets/polony.png'
     },
     {
       name: 'Cheese',
       price: '4,00',
       rating: '100% (7)',
-      description: 'Add cheese as a topping or filling.'
+      description: 'Add cheese as a topping or filling.',
+      image: 'assets/cheese.jpeg'
     },
     {
       name: 'Vienna',
       price: '4,00',
       rating: '100% (4)',
-      description: 'Frankfurter-style Vienna sausage.'
+      description: 'Frankfurter-style Vienna sausage.',
+      image: 'assets/vienna.jpeg'
     },
     {
       name: 'Chilli Russian',
       price: '22,00',
       rating: '75% (4)',
-      description: 'Spicy'
+      description: 'Spicy',
+      image: 'assets/rush.jpeg'
     },
     {
       name: 'Cheese Russian',
       price: '29,00',
       rating: '75% (4)',
-      description: ''
+      description: '',
+      image: 'assets/rush.jpeg'
     }
   ];
   softDrinks = [
@@ -265,5 +258,15 @@ export class MenuAndCustomizationComponent implements OnInit {
 
   getToppingNames(toppings: Topping[]): string {
     return toppings.map(t => t.name).join(', ');
+  }
+
+  addCardToCart(card: MenuCard, category: string): void {
+    const menuItem = menuCardToMenuItem(card, category);
+    const cartItem: CartItem = {
+      menuItem,
+      quantity: 1,
+      selectedToppings: []
+    };
+    this.cartService.addToCart(cartItem);
   }
 }

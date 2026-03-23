@@ -1,17 +1,18 @@
 <div class="category-page">
-  <div class="category-hero">
-    <img src="assets/zulu%20burger.jpeg" alt="Zulu burgers" />
-  </div>
   <h1>Zulu Burger Combos</h1>
   <p class="lead">Chewy gwinya buns stuffed with chips, polony, and cheese.</p>
   <div class="combo-grid">
     <article *ngFor="let combo of combos">
+      <div class="combo-visual">
+        <img [src]="combo.image || 'assets/zulu%20burger.jpeg'" [alt]="combo.name" />
+      </div>
       <header>
         <h2>{{ combo.name }}</h2>
         <span class="price">R {{ combo.price }}</span>
       </header>
       <p class="description">{{ combo.description }}</p>
       <p class="rating" *ngIf="combo.rating">{{ combo.rating }}</p>
+      <button type="button" (click)="addToCart(combo)" class="btn-add-cart">Add to cart</button>
     </article>
   </div>
 </div>

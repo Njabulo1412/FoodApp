@@ -1,0 +1,23 @@
+<div class="daily-page">
+  <div class="section-heading">
+    <div>
+      <h1>Daily Specials</h1>
+      <p>House curried favourites served hot with rice or phuthu.</p>
+    </div>
+    <span class="section-note">Fresh</span>
+  </div>
+  <div class="combo-grid">
+    <article *ngFor="let special of specials">
+      <div class="special-image" *ngIf="special.image">
+        <img [src]="special.image" [alt]="special.name" />
+      </div>
+      <header>
+        <h2>{{ special.name }}</h2>
+        <span class="price">R {{ special.price }}</span>
+      </header>
+      <p class="description">{{ special.description }}</p>
+      <p class="rating" *ngIf="special.rating">{{ special.rating }}</p>
+      <button type="button" (click)="addToCart(special)" class="btn-add-cart">Add to cart</button>
+    </article>
+  </div>
+</div>

@@ -18,6 +18,7 @@ import { CrmDashboardComponent } from './compnents/crm-dashboard/crm-dashboard.c
 import { AboutComponent } from './compnents/about/about.component';
 import { VisionLegalComponent } from './compnents/vision-legal/vision-legal.component';
 import { TermsComponent } from './compnents/terms/terms.component';
+import { DailySpecialsComponent } from './compnents/daily-specials/daily-specials.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { TermsComponent } from './compnents/terms/terms.component';
     KotaMenuComponent,
     WingsComponent,
     RollsComponent,
+    DailySpecialsComponent,
     CrmDashboardComponent,
     AboutComponent,
     VisionLegalComponent,

@@ -298,8 +298,15 @@
 .item-grid article {
   padding: 22px;
   border-radius: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 3px solid #5a0e0e;
   background: #fff6f2;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item-grid article:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(90, 14, 14, 0.2);
 }
 
 .item-grid h3 {

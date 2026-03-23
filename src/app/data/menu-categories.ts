@@ -6,40 +6,56 @@ export interface MenuCard {
   image?: string;
 }
 
+export const DAILY_SPECIALS: MenuCard[] = [
+  {
+    name: 'Beef Curry',
+    price: '81,00',
+    rating: '80% (5)',
+    description: 'Tender beef slow cooked in a rich and flavourful curry sauce.',
+    image: 'assets/beef.webp'
+  },
+  {
+    name: 'Chicken Curry',
+    price: '81,00',
+    description: 'Tender chicken cooked in a fragrant and spiced curry sauce.',
+    image: 'assets/chicken.jpg'
+  }
+];
+
 export const GWINYA_COMBOS: MenuCard[] = [
   {
     name: 'Gwinya Vetkoek Combo',
     price: '7,00',
     rating: '93% (30)',
     description: 'Crispy on the outside and fluffy on the inside.',
-    image: 'assets/Magwinya+Recipe.webp'
+    image: 'assets/Magwinya%2BRecipe.webp'
   },
   {
     name: 'Gwinya and Polony Combo',
     price: '10,00',
     rating: '100% (4)',
     description: 'Vetkoek filled with polony and just the right amount of sauce.',
-    image: 'assets/Magwinya+Recipe.webp'
+    image: 'assets/Magwinya%2BRecipe.webp'
   },
   {
     name: 'Gwinya and Cheese Combo',
     price: '12,00',
     description: 'Vetkoek filled with a generous slice of Cheddar cheese.',
-    image: 'assets/Magwinya+Recipe.webp'
+    image: 'assets/Magwinya%2BRecipe.webp'
   },
   {
     name: 'Gwinya, Polony and Cheese Combo',
     price: '15,00',
     rating: '100% (3)',
     description: 'Deep fried vetkoek packed with polony and gooey cheese.',
-    image: 'assets/Magwinya+Recipe.webp'
+    image: 'assets/Magwinya%2BRecipe.webp'
   },
   {
     name: 'Gwinya and Fried Chips (small) Combo',
     price: '34,00',
     rating: '85% (7)',
     description: 'Vetkoek served next to crispy fried chips and sauce.',
-    image: 'assets/Magwinya+Recipe.webp'
+    image: 'assets/Magwinya%2BRecipe.webp'
   }
 ];
 
@@ -132,13 +148,13 @@ export const ROLLS_MENU: MenuCard[] = [
     name: 'Cheese Russian Roll',
     price: '44,00',
     description: 'Cheese Russian, grilled onions and sauce in a roll.',
-    image: 'assets/roll.jpeg'
+    image: 'assets/rush.jpeg'
   },
   {
     name: 'Chilli Russian Roll',
     price: '29,00',
     description: 'Chilli Russian iyababa, grilled onions and sauce in a roll. Spicy',
-    image: 'assets/roll.jpeg'
+    image: 'assets/rush.jpeg'
   },
   {
     name: 'Chip Roll',

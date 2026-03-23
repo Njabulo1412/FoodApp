@@ -1,13 +1,10 @@
 <div class="category-page">
-  <div class="category-hero">
-    <img src="assets/roll.jpeg" alt="Rolls" />
-  </div>
   <h1>Rolls</h1>
   <p class="lead">Hot rolls wrapped and ready.</p>
   <div class="kota-grid">
     <article *ngFor="let roll of rolls" class="kota-card">
       <div class="kota-image">
-        <img [src]="roll.image" [alt]="roll.name" />
+        <img [src]="roll.image || 'assets/roll.jpeg'" [alt]="roll.name" />
       </div>
       <header>
         <h2>{{ roll.name }}</h2>
@@ -15,6 +12,7 @@
       </header>
       <p class="description">{{ roll.description }}</p>
       <p class="rating" *ngIf="roll.rating">{{ roll.rating }}</p>
+      <button type="button" (click)="addToCart(roll)" class="btn-add-cart">Add to cart</button>
     </article>
   </div>
 </div>

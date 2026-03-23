@@ -14,6 +14,7 @@ import { CrmDashboardComponent } from './compnents/crm-dashboard/crm-dashboard.c
 import { AboutComponent } from './compnents/about/about.component';
 import { VisionLegalComponent } from './compnents/vision-legal/vision-legal.component';
 import { TermsComponent } from './compnents/terms/terms.component';
+import { DailySpecialsComponent } from './compnents/daily-specials/daily-specials.component';
 
 const routes: Routes = [
   { path: '', component: LANDINGPAGEComponent },
@@ -25,6 +26,8 @@ const routes: Routes = [
   { path: 'zulu-burgers', component: ZuluBurgersComponent },
   { path: 'kota-menu', component: KotaMenuComponent },
   { path: 'wings', component: WingsComponent },
+  { path: 'rolls', component: RollsComponent },
+  { path: 'daily-specials', component: DailySpecialsComponent },
   { path: 'crm', component: CrmDashboardComponent },
   { path: 'vision', component: VisionLegalComponent },
   { path: 'about', component: AboutComponent },

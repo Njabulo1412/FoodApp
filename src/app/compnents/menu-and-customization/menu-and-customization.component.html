@@ -21,10 +21,6 @@
         </div>
       </div>
     </div>
-    <div class="hero-visual">
-      <img src="assets/chips.jpeg" alt="Lolly's chips" />
-      <span class="hero-tagline">Fresh & hot</span>
-    </div>
   </section>
 
   <div class="category-links">
@@ -43,21 +39,22 @@
       </div>
       <span class="section-note">Fresh daily</span>
     </div>
-      <div class="combo-grid">
-        <article *ngFor="let combo of gwinyaCombos">
-          <div class="combo-image" *ngIf="combo.image">
-            <img [src]="combo.image" [alt]="combo.name" />
-          </div>
-          <header>
-            <h3>{{ combo.name }}</h3>
-            <span class="combo-price">R {{ combo.price }}</span>
-          </header>
+    <div class="combo-grid">
+      <article *ngFor="let combo of gwinyaCombos">
+        <div class="combo-image">
+          <img [src]="combo.image || 'assets/Magwinya+Recipe.webp'" [alt]="combo.name" />
+        </div>
+        <header>
+          <h3>{{ combo.name }}</h3>
+          <span class="combo-price">R {{ combo.price }}</span>
+        </header>
         <p class="combo-rating" *ngIf="combo.rating">
           {{ combo.rating }}
         </p>
         <p class="combo-description">
           {{ combo.description }}
         </p>
+        <button type="button" (click)="addCardToCart(combo, 'Gwinya Combos')" class="btn-add-cart">Add to cart</button>
       </article>
     </div>
   </section>
@@ -72,6 +69,9 @@
     </div>
     <div class="combo-grid">
       <article *ngFor="let special of dailySpecials">
+        <div class="special-image" *ngIf="special.image">
+          <img [src]="special.image" [alt]="special.name" />
+        </div>
         <header>
           <h3>{{ special.name }}</h3>
           <span class="combo-price">R {{ special.price }}</span>
@@ -82,6 +82,7 @@
         <p class="combo-description">
           {{ special.description }}
         </p>
+        <button type="button" (click)="addCardToCart(special, 'Daily Specials')" class="btn-add-cart">Add to cart</button>
       </article>
     </div>
   </section>
@@ -109,6 +110,7 @@
         <p class="combo-description">
           {{ combo.description }}
         </p>
+        <button type="button" (click)="addCardToCart(combo, 'Zulu Burgers')" class="btn-add-cart">Add to cart</button>
       </article>
     </div>
   </section>
@@ -136,6 +138,7 @@
         <p class="combo-description">
           {{ kota.description }}
         </p>
+        <button type="button" (click)="addCardToCart(kota, 'Kota Menu')" class="btn-add-cart">Add to cart</button>
       </article>
     </div>
   </section>
@@ -150,6 +153,9 @@
     </div>
     <div class="combo-grid">
       <article *ngFor="let roll of rollItems">
+        <div class="roll-image" *ngIf="roll.image">
+          <img [src]="roll.image" [alt]="roll.name" />
+        </div>
         <header>
           <h3>{{ roll.name }}</h3>
           <span class="combo-price">R {{ roll.price }}</span>
@@ -170,20 +176,24 @@
       <span class="section-note">Add-on</span>
     </div>
     <div class="extras-grid">
-      <div class="extra-list">
-        <article *ngFor="let extra of extras">
-          <header>
-            <h3>{{ extra.name }}</h3>
-            <span class="combo-price">R {{ extra.price }}</span>
-          </header>
-          <p class="combo-rating" *ngIf="extra.rating">
-            {{ extra.rating }}
-          </p>
-          <p class="combo-description">
-            {{ extra.description }}
-          </p>
-        </article>
-      </div>
+    <div class="extra-list">
+      <article *ngFor="let extra of extras">
+        <div class="extra-image" *ngIf="extra.image">
+          <img [src]="extra.image" [alt]="extra.name" />
+        </div>
+        <header>
+          <h3>{{ extra.name }}</h3>
+          <span class="combo-price">R {{ extra.price }}</span>
+        </header>
+        <p class="combo-rating" *ngIf="extra.rating">
+          {{ extra.rating }}
+        </p>
+        <p class="combo-description">
+          {{ extra.description }}
+        </p>
+        <button type="button" (click)="addCardToCart(extra, 'Extras')" class="btn-add-cart">Add to cart</button>
+      </article>
+    </div>
       <div class="extras-side">
         <div class="crm-card">
           <h3>{{ crmBoard.title }}</h3>
@@ -274,7 +284,7 @@
           </div>
           <p class="description">{{ item.description }}</p>
           <button (click)="openCustomizationModal(item)" class="btn-customize">
-            Order now
+            Add to cart
           </button>
         </div>
       </div>

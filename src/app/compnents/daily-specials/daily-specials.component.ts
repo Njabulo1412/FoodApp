@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { CartItem } from '../../models/menu.model';
 import { CartService } from '../../services/cart.service';
-import { GWINYA_COMBOS, MenuCard } from '../../data/menu-categories';
+import { DAILY_SPECIALS, MenuCard } from '../../data/menu-categories';
 import { menuCardToMenuItem } from '../../utils/menu-card-utils';
 
 @Component({
-  selector: 'app-gwinya-combos',
-  templateUrl: './gwinya-combos.component.html',
-  styleUrls: ['./gwinya-combos.component.css']
+  selector: 'app-daily-specials',
+  templateUrl: './daily-specials.component.html',
+  styleUrls: ['./daily-specials.component.css']
 })
-export class GwinyaCombosComponent {
-  combos = GWINYA_COMBOS;
+export class DailySpecialsComponent {
+  specials: MenuCard[] = DAILY_SPECIALS;
   constructor(private cartService: CartService) {}
 
-  addToCart(combo: MenuCard): void {
+  addToCart(special: MenuCard): void {
     const cartItem: CartItem = {
-      menuItem: menuCardToMenuItem(combo, 'Gwinya Combos'),
+      menuItem: menuCardToMenuItem(special, 'Daily Specials'),
       quantity: 1,
       selectedToppings: []
     };
