@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { GWINYA_COMBOS, KOTAS, ROLLS_MENU, WINGS_MENU, ZULU_BURGERS, DAILY_SPECIALS, MenuCard } from '../../data/menu-categories';
 import { menuCardToMenuItem } from '../../utils/menu-card-utils';
+import { EXTRAS_ITEMS } from '../../data/extras-data';
+import { SOFT_DRINKS, WATER_SIZES, SLUSHY_SIZES, HOT_DRINKS } from '../../data/drinks-data';
 
 @Component({
   selector: 'app-menu-and-customization',
@@ -20,72 +22,17 @@ export class MenuAndCustomizationComponent implements OnInit {
   zuluBurgers = ZULU_BURGERS;
   kotas = KOTAS;
   rollItems = ROLLS_MENU;
-  extras = [
-    {
-      name: 'Polony',
-      price: '3,00',
-      rating: '80% (5)',
-      description: 'Sliced polony, a bologna-style sausage.',
-      image: 'assets/polony.png'
-    },
-    {
-      name: 'Cheese',
-      price: '4,00',
-      rating: '100% (7)',
-      description: 'Add cheese as a topping or filling.',
-      image: 'assets/cheese.jpeg'
-    },
-    {
-      name: 'Vienna',
-      price: '4,00',
-      rating: '100% (4)',
-      description: 'Frankfurter-style Vienna sausage.',
-      image: 'assets/vienna.jpeg'
-    },
-    {
-      name: 'Chilli Russian',
-      price: '22,00',
-      rating: '75% (4)',
-      description: 'Spicy',
-      image: 'assets/rush.jpeg'
-    },
-    {
-      name: 'Cheese Russian',
-      price: '29,00',
-      rating: '75% (4)',
-      description: '',
-      image: 'assets/rush.jpeg'
-    }
-  ];
-  softDrinks = [
-    { size: '330ml', format: 'Can', price: 'R12 – R15' },
-    { size: '440ml', format: 'Can', price: 'R15 – R18' },
-    { size: '500ml', format: 'Bottle', price: 'R15 – R20' },
-    { size: '1L', format: 'Bottle', price: 'R20 – R25' },
-    { size: '1.5L', format: 'Bottle', price: 'R25 – R30' },
-    { size: '2L', format: 'Bottle', price: 'R30 – R35' }
-  ];
+  extras = EXTRAS_ITEMS;
+  softDrinks = SOFT_DRINKS;
   crmBoard = {
     title: 'CRM Board (Live)',
-    displays: ['User', 'Total price', 'Delivery type'],
-    description: 'Updates instantly when new orders arrive so staff always see what is in flight.'
+    description: 'Latest cart activity surfaces here for staff.',
+    lastOrder: '',
+    lastOrderValue: 0
   };
-  waterSizes = [
-    { size: '330ml', price: 'R8 – R10' },
-    { size: '500ml', price: 'R10 – R15' },
-    { size: '1L', price: 'R15 – R18' },
-    { size: '1.5L', price: 'R18 – R22' }
-  ];
-  slushySizes = [
-    { size: 'Small', price: 'R10 – R15' },
-    { size: 'Medium', price: 'R15 – R20' },
-    { size: 'Large', price: 'R20 – R25' }
-  ];
-  hotDrinks = [
-    { name: 'Coffee', small: 'R10', medium: 'R12', large: 'R15' },
-    { name: 'Hot Chocolate', small: 'R12', medium: 'R15', large: 'R18' },
-    { name: 'Milo', small: 'R12', medium: 'R15', large: 'R18' }
-  ];
+  waterSizes = WATER_SIZES;
+  slushySizes = SLUSHY_SIZES;
+  hotDrinks = HOT_DRINKS;
   selectedCategory: string = '';
   cart: CartItem[] = [];
   selectedItem: MenuItem | null = null;
@@ -199,6 +146,7 @@ export class MenuAndCustomizationComponent implements OnInit {
     this.cartService.addToCart(cartItem);
     this.closeCustomizationModal();
     alert('Item added to cart!');
+    this.updateCrmBoard(cartItem);
   }
 
   removeFromCart(index: number): void {
@@ -268,5 +216,56 @@ export class MenuAndCustomizationComponent implements OnInit {
       selectedToppings: []
     };
     this.cartService.addToCart(cartItem);
+    this.updateCrmBoard(cartItem);
+  }
+
+  addMenuItemToCart(item: MenuItem): void {
+    const cartItem: CartItem = {
+      menuItem: item,
+      quantity: 1,
+      selectedToppings: []
+    };
+    this.cartService.addToCart(cartItem);
+    this.updateCrmBoard(cartItem);
+  }
+
+  addDailySpecialToCart(): void {
+    if (this.dailySpecials.length === 0) {
+      return;
+    }
+    this.addCardToCart(this.dailySpecials[0], 'Daily Specials');
+  }
+
+  addExtraToCart(): void {
+    if (this.extras.length === 0) {
+      return;
+    }
+    this.addCardToCart(this.extras[0], 'Extras');
+  }
+
+  addDrinkToCart(): void {
+    const drinkCard: MenuCard = {
+      name: 'Soft Drink Combo',
+      price: '15,00',
+      description: '330ml can of your favourite fizzy cooler.',
+      image: 'assets/coca-cola-cold-drink-717.jpg'
+    };
+    this.addCardToCart(drinkCard, 'Drinks');
+  }
+
+  addCustomizationPack(): void {
+    const packCard: MenuCard = {
+      name: 'Customization Pack',
+      price: '0,00',
+      description: 'Build your own combination of toppings, sauces, and sides.',
+      image: 'assets/roll.jpeg'
+    };
+    this.addCardToCart(packCard, 'Customization');
+  }
+
+  private updateCrmBoard(cartItem: CartItem): void {
+    const toppingsTotal = cartItem.selectedToppings.reduce((sum, topping) => sum + topping.price, 0);
+    this.crmBoard.lastOrder = cartItem.menuItem.name;
+    this.crmBoard.lastOrderValue = (cartItem.menuItem.price + toppingsTotal) * cartItem.quantity;
   }
 }

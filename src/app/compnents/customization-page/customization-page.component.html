@@ -1,0 +1,38 @@
+<div class="customization-page">
+  <div class="hero">
+    <h1>Customization Studio</h1>
+    <p>Pick sauces, toppings, and sides to personalize your roll or combo, then add everything to the cart.</p>
+    <button routerLink="/menu" class="btn-primary">Start customizing</button>
+    <button type="button" class="btn-add-cart" (click)="addCustomizationPack()">Add to cart</button>
+  </div>
+  <button class="back-btn" routerLink="/">Back</button>
+  <section>
+    <h2>Toppings & extras</h2>
+    <div class="combo-grid">
+      <article *ngFor="let extra of extras">
+        <header>
+          <h3>{{ extra.name }}</h3>
+          <span class="price">R {{ extra.price }}</span>
+        </header>
+        <p>{{ extra.description }}</p>
+      </article>
+    </div>
+  </section>
+  <section>
+    <h2>Drinks pairing</h2>
+    <div class="drink-grid">
+      <div>
+        <h3>Soft drinks</h3>
+        <p>{{ softDrinks.length }} fizzy flavors</p>
+      </div>
+      <div>
+        <h3>Water + slushy</h3>
+        <p>Hydrate with {{ waterSizes.length }} bottles or {{ slushySizes.length }} slushy sizes</p>
+      </div>
+      <div>
+        <h3>Hot drinks</h3>
+        <p>{{ hotDrinks.length }} warm choices</p>
+      </div>
+    </div>
+  </section>
+</div>

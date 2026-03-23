@@ -1,0 +1,73 @@
+<div class="drinks-page">
+  <div class="section-heading">
+    <div>
+      <h1>Drinks</h1>
+      <p>Chilled, fizzy, and comforting pours to wash down the rolls.</p>
+    </div>
+  </div>
+  <button class="back-btn" routerLink="/">Back</button>
+  <div class="drink-grid">
+    <section>
+      <h2>Soft drinks</h2>
+      <div class="table">
+        <div class="table-row table-head">
+          <span>Size</span>
+            <span>Format</span>
+            <span>Price</span>
+          </div>
+          <div class="table-row" *ngFor="let drink of softDrinks">
+            <span>{{ drink.size }}</span>
+            <span>{{ drink.format }}</span>
+            <span>{{ drink.price }}</span>
+          </div>
+        <button type="button" class="btn-add-cart" (click)="addDrinkCombo('soft')">Add to cart</button>
+      </div>
+    </section>
+    <section>
+      <h2>Water</h2>
+      <div class="table">
+        <div class="table-row table-head">
+          <span>Size</span>
+          <span>Price</span>
+        </div>
+        <div class="table-row" *ngFor="let water of waterSizes">
+          <span>{{ water.size }}</span>
+          <span>{{ water.price }}</span>
+        </div>
+        <button type="button" class="btn-add-cart" (click)="addDrinkCombo('water')">Add to cart</button>
+      </div>
+    </section>
+    <section>
+      <h2>Slushy</h2>
+      <div class="table">
+        <div class="table-row table-head">
+          <span>Size</span>
+          <span>Price</span>
+        </div>
+        <div class="table-row" *ngFor="let slushy of slushySizes">
+          <span>{{ slushy.size }}</span>
+          <span>{{ slushy.price }}</span>
+        </div>
+        <button type="button" class="btn-add-cart" (click)="addDrinkCombo('slushy')">Add to cart</button>
+      </div>
+    </section>
+    <section>
+      <h2>Hot drinks</h2>
+      <div class="table">
+        <div class="table-row table-head">
+          <span>Drink</span>
+          <span>Small</span>
+          <span>Medium</span>
+          <span>Large</span>
+        </div>
+        <div class="table-row" *ngFor="let drink of hotDrinks">
+          <span>{{ drink.name }}</span>
+          <span>{{ drink.small }}</span>
+          <span>{{ drink.medium }}</span>
+          <span>{{ drink.large }}</span>
+        </div>
+        <button type="button" class="btn-add-cart" (click)="addDrinkCombo('hot')">Add to cart</button>
+      </div>
+    </section>
+  </div>
+</div>

@@ -18,6 +18,19 @@ body {
   box-shadow: 0 20px 60px rgba(29, 29, 29, 0.15);
 }
 
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border-radius: 999px;
+  border: 1px solid #e01d1d;
+  background: transparent;
+  color: #e01d1d;
+  padding: 8px 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .hero-nav {
   display: flex;
   justify-content: space-between;
@@ -132,6 +145,26 @@ body {
   color: #e01d1d;
   text-decoration: none;
   font-weight: 600;
+}
+
+.category-links button {
+  margin-left: 4px;
+}
+
+.nav-add-btn {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: #5a0e0e;
+  color: #fff;
+  padding: 6px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-add-btn:hover {
+  transform: translateY(-1px);
+  background: #7a1414;
 }
 
 .gwinya-section,

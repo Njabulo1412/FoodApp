@@ -15,6 +15,9 @@ import { AboutComponent } from './compnents/about/about.component';
 import { VisionLegalComponent } from './compnents/vision-legal/vision-legal.component';
 import { TermsComponent } from './compnents/terms/terms.component';
 import { DailySpecialsComponent } from './compnents/daily-specials/daily-specials.component';
+import { ExtrasPageComponent } from './compnents/extras-page/extras-page.component';
+import { DrinksPageComponent } from './compnents/drinks-page/drinks-page.component';
+import { CustomizationPageComponent } from './compnents/customization-page/customization-page.component';
 
 const routes: Routes = [
   { path: '', component: LANDINGPAGEComponent },
@@ -28,6 +31,9 @@ const routes: Routes = [
   { path: 'wings', component: WingsComponent },
   { path: 'rolls', component: RollsComponent },
   { path: 'daily-specials', component: DailySpecialsComponent },
+  { path: 'extras', component: ExtrasPageComponent },
+  { path: 'drinks', component: DrinksPageComponent },
+  { path: 'customization', component: CustomizationPageComponent },
   { path: 'crm', component: CrmDashboardComponent },
   { path: 'vision', component: VisionLegalComponent },
   { path: 'about', component: AboutComponent },

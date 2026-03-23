@@ -90,3 +90,13 @@
   transform: translateY(-2px);
   box-shadow: 0 12px 20px rgba(90, 14, 14, 0.25);
 }
+.back-btn {
+  margin-bottom: 12px;
+  border-radius: 999px;
+  border: 1px solid #e01d1d;
+  background: transparent;
+  color: #e01d1d;
+  padding: 8px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}

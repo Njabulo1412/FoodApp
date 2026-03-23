@@ -1,0 +1,99 @@
+.customization-page {
+  padding: 32px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.back-btn {
+  margin-bottom: 12px;
+  border-radius: 999px;
+  border: 1px solid #e01d1d;
+  background: transparent;
+  color: #e01d1d;
+  padding: 8px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.hero {
+  background: #fff5ef;
+  border-radius: 28px;
+  padding: 24px;
+  margin-bottom: 24px;
+  border: 1px solid #f2c8b3;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+}
+
+.hero h1 {
+  margin: 0;
+  color: #2f1a0b;
+  font-size: 2.4rem;
+}
+
+.hero p {
+  color: #5b4a3f;
+  margin: 12px 0;
+}
+
+.hero .btn-primary {
+  margin-top: 10px;
+}
+
+section {
+  margin-bottom: 24px;
+}
+
+section h2 {
+  margin-bottom: 12px;
+  color: #2f1a0b;
+}
+
+.combo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.combo-grid article {
+  background: #fff;
+  border-radius: 20px;
+  padding: 16px;
+  border: 1px solid #f0d1b6;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.price {
+  color: #e01d1d;
+  font-weight: 700;
+}
+
+.drink-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.drink-grid > div {
+  padding: 18px;
+  border-radius: 20px;
+  background: #fff5ef;
+  border: 1px solid #f2c8b3;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.btn-add-cart {
+  margin-top: 12px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: none;
+  background: #5a0e0e;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-add-cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(90, 14, 14, 0.3);
+}

@@ -19,6 +19,9 @@ import { AboutComponent } from './compnents/about/about.component';
 import { VisionLegalComponent } from './compnents/vision-legal/vision-legal.component';
 import { TermsComponent } from './compnents/terms/terms.component';
 import { DailySpecialsComponent } from './compnents/daily-specials/daily-specials.component';
+import { ExtrasPageComponent } from './compnents/extras-page/extras-page.component';
+import { DrinksPageComponent } from './compnents/drinks-page/drinks-page.component';
+import { CustomizationPageComponent } from './compnents/customization-page/customization-page.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,10 @@ import { DailySpecialsComponent } from './compnents/daily-specials/daily-special
     KotaMenuComponent,
     WingsComponent,
     RollsComponent,
+    DailySpecialsComponent,
+    ExtrasPageComponent,
+    DrinksPageComponent,
+    CustomizationPageComponent,
     DailySpecialsComponent,
     CrmDashboardComponent,
     AboutComponent,

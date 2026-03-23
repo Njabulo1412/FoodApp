@@ -1,0 +1,21 @@
+<div class="category-page">
+  <div class="category-hero">
+    <h1>Extras</h1>
+    <p>Build your roll exactly the way you love it.</p>
+  </div>
+  <button class="back-btn" routerLink="/">Back</button>
+    <div class="combo-grid">
+      <article *ngFor="let extra of extras">
+        <div class="combo-visual" *ngIf="extra.image">
+          <img [src]="extra.image" [alt]="extra.name" />
+        </div>
+        <header>
+          <h2>{{ extra.name }}</h2>
+          <span class="price">R {{ extra.price }}</span>
+        </header>
+        <p class="description">{{ extra.description }}</p>
+        <p class="rating" *ngIf="extra.rating">{{ extra.rating }}</p>
+        <button type="button" (click)="addToCart(extra)" class="btn-add-cart">Add to cart</button>
+      </article>
+  </div>
+</div>
