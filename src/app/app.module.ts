@@ -17,6 +17,7 @@ import { RollsComponent } from './compnents/rolls/rolls.component';
 import { CrmDashboardComponent } from './compnents/crm-dashboard/crm-dashboard.component';
 import { AboutComponent } from './compnents/about/about.component';
 import { VisionLegalComponent } from './compnents/vision-legal/vision-legal.component';
+import { VisionDataComponent } from './compnents/vision-data/vision-data.component';
 import { TermsComponent } from './compnents/terms/terms.component';
 import { DailySpecialsComponent } from './compnents/daily-specials/daily-specials.component';
 import { ExtrasPageComponent } from './compnents/extras-page/extras-page.component';
@@ -44,6 +45,7 @@ import { CustomizationPageComponent } from './compnents/customization-page/custo
     CrmDashboardComponent,
     AboutComponent,
     VisionLegalComponent,
+    VisionDataComponent,
     TermsComponent
   ],
   imports: [

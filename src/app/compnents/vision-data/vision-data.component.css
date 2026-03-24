@@ -1,0 +1,129 @@
+.vision-data {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+  font-family: 'Inter', sans-serif;
+}
+
+.hero-card {
+  background: #fff;
+  border-radius: 26px;
+  padding: 28px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(189, 54, 54, 0.32);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+}
+
+.hero-card h1 {
+  margin: 0 0 10px;
+  color: #e01d1d;
+}
+
+.journey-card,
+.database-structure,
+.monitoring-card {
+  background: #fff;
+  border-radius: 26px;
+  padding: 28px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(189, 54, 54, 0.18);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.journey-card h2,
+.database-structure h2,
+.monitoring-card h2 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  color: #e01d1d;
+}
+
+.journey-card ol {
+  margin: 0;
+  padding-left: 22px;
+  color: #3c3c3c;
+  line-height: 1.6;
+}
+
+.database-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.table-card {
+  background: #fff8f4;
+  border-radius: 20px;
+  padding: 18px;
+  border: 1px dashed rgba(189, 54, 54, 0.4);
+}
+
+.table-card h3 {
+  margin: 0 0 8px;
+  color: #2f1a0b;
+}
+
+.table-card ul {
+  margin: 0;
+  padding-left: 18px;
+  line-height: 1.5;
+  color: #3c3c3c;
+}
+
+.data-focus {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.data-card {
+  background: #fff7f3;
+  border-radius: 22px;
+  border: 1px solid rgba(189, 54, 54, 0.25);
+  padding: 24px;
+}
+
+.data-card h2 {
+  margin-top: 0;
+  color: #2f1a0b;
+}
+
+.data-card ul {
+  padding-left: 20px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  color: #3c3c3c;
+}
+
+.insight-label {
+  font-weight: 600;
+  color: #2f1a0b;
+  margin-bottom: 4px;
+}
+
+.insight-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #3c3c3c;
+}
+
+.monitoring-card p {
+  margin: 0 0 12px;
+  color: #3c3c3c;
+  line-height: 1.6;
+}
+
+.dashboard-label {
+  margin: 0 0 10px;
+  font-weight: 600;
+  color: #4a1507;
+}
+
+.dashboard-list {
+  margin: 0;
+  padding-left: 22px;
+  color: #3c3c3c;
+  line-height: 1.5;
+}

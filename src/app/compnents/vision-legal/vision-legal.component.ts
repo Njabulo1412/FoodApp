@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
 
-interface Term {
-  title: string;
-  description: string;
-}
-
 @Component({
   selector: 'app-vision-legal',
   templateUrl: './vision-legal.component.html',
@@ -21,6 +16,4 @@ export class VisionLegalComponent {
 
   vision =
     'To become one of South Africa’s leading fast food franchises, known for irresistible flavour, affordability, and consistent quality, while expanding across cities and communities.';
-terms: any;
-
 }

@@ -13,6 +13,7 @@ import { RollsComponent } from './compnents/rolls/rolls.component';
 import { CrmDashboardComponent } from './compnents/crm-dashboard/crm-dashboard.component';
 import { AboutComponent } from './compnents/about/about.component';
 import { VisionLegalComponent } from './compnents/vision-legal/vision-legal.component';
+import { VisionDataComponent } from './compnents/vision-data/vision-data.component';
 import { TermsComponent } from './compnents/terms/terms.component';
 import { DailySpecialsComponent } from './compnents/daily-specials/daily-specials.component';
 import { ExtrasPageComponent } from './compnents/extras-page/extras-page.component';
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'customization', component: CustomizationPageComponent },
   { path: 'crm', component: CrmDashboardComponent },
   { path: 'vision', component: VisionLegalComponent },
+  { path: 'vision-data', component: VisionDataComponent },
   { path: 'about', component: AboutComponent },
   { path: 'terms', component: TermsComponent },
   { path: '**', redirectTo: '' }

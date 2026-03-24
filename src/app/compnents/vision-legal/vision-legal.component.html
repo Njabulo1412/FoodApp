@@ -4,19 +4,20 @@
     <p>Everything Lolly’s builds is grounded in kasi culture with modern execution.</p>
   </section>
 
-<section class="statements">
-  <article class="statement-card">
-    <h2>Mission</h2>
-    <ul>
-      <li *ngFor="let item of mission">{{ item }}</li>
-    </ul>
-  </article>
-  <article class="statement-card">
-    <h2>Vision</h2>
-    <p>{{ vision }}</p>
-  </article>
-</section>
-
-
-
+  <section class="statements">
+    <article class="statement-card">
+      <h2>Mission</h2>
+      <ul>
+        <li *ngFor="let item of mission">{{ item }}</li>
+      </ul>
+    </article>
+    <article class="statement-card">
+      <h2>Vision</h2>
+      <p>{{ vision }}</p>
+    </article>
+  </section>
+  <section class="cta-card">
+    <p>Want the CRM data story broken out into its own page?</p>
+    <a routerLink="/vision-data" class="cta-link">Read the CRM data journey</a>
+  </section>
 </div>

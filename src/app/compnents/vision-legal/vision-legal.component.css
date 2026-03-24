@@ -52,38 +52,30 @@
   line-height: 1.6;
 }
 
-.terms {
-  background: #fff;
+.cta-card {
+  margin-top: 24px;
   padding: 28px;
+  background: #fff5f0;
+  border: 1px solid rgba(224,29,29,0.15);
   border-radius: 26px;
-  border: 1px solid rgba(189,54,54,0.321);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
 }
 
-.terms h2 {
-  margin-top: 0;
-  margin-bottom: 18px;
-  color: #e01d1d;
+.cta-link {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #e01d1d, #ff5c2e);
+  border-radius: 999px;
+  padding: 12px 32px;
+  text-decoration: none;
+  transition: transform 0.2s ease;
 }
 
-.term-card {
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px dashed rgba(0,0,0,0.1);
-}
-
-.term-card:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.term-card h3 {
-  margin: 0;
-  color: #2f1a0b;
-}
-
-.term-card p {
-  margin: 4px 0 0;
-  color: #3c3c3c;
-  line-height: 1.5;
+.cta-link:hover {
+  transform: translateY(-2px);
 }

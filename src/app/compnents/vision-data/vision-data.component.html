@@ -1,0 +1,57 @@
+<div class="vision-data">
+  <section class="hero-card">
+    <h1>CRM Data Journey</h1>
+    <p>Each interaction becomes insight that powers communication, segmentation, and service.</p>
+  </section>
+
+  <section class="journey-card">
+    <h2>1. Data Journey</h2>
+    <ol>
+      <li *ngFor="let step of dataJourneySteps">{{ step }}</li>
+    </ol>
+  </section>
+
+  <section class="database-structure">
+    <h2>📁 Database Structure (Simple)</h2>
+    <div class="database-grid">
+      <article class="table-card" *ngFor="let table of databaseStructure">
+        <h3>{{ table.name }}</h3>
+        <ul>
+          <li *ngFor="let field of table.fields">{{ field }}</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="data-focus">
+    <article class="data-card">
+      <h2>🧠 Behavioural Data (MOST IMPORTANT)</h2>
+      <ul>
+        <li *ngFor="let point of behaviouralDataPoints">{{ point }}</li>
+      </ul>
+      <p class="insight-label">This tells you:</p>
+      <div class="insight-list">
+        <span>What customers are interested in</span>
+        <span>What is NOT working</span>
+      </div>
+    </article>
+    <article class="data-card">
+      <h2>💳 Transaction Data</h2>
+      <ul>
+        <li *ngFor="let point of transactionDataPoints">{{ point }}</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="monitoring-card">
+    <h2>📊 Monitoring</h2>
+    <p>
+      The dashboard pulls visit, order, and advertiser stats next to traffic-source trends so the
+      team can react when a promotion underperforms.
+    </p>
+    <p class="dashboard-label">Dashboard highlights:</p>
+    <ul class="dashboard-list">
+      <li *ngFor="let item of dashboardHighlights">{{ item }}</li>
+    </ul>
+  </section>
+</div>
