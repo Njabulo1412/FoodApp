@@ -10,6 +10,44 @@
   margin-bottom: 20px;
 }
 
+.user-section {
+  background: #fff;
+  border-radius: 20px;
+  padding: 16px 22px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.user-section .label {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 0.7rem;
+  color: #7b8794;
+}
+
+.user-section h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #111827;
+}
+
+.user-section .meta {
+  margin: 4px 0 0;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.user-order-stats p {
+  margin: 0;
+  color: #475569;
+  font-weight: 600;
+}
+
 .nav-controls {
   margin-bottom: 12px;
 }
@@ -459,6 +497,12 @@
   display: flex;
   gap: 10px;
   margin-top: 12px;
+}
+
+.cancel-warning {
+  margin: 0;
+  color: #c0392b;
+  font-size: 0.8rem;
 }
 
 .btn-cancel {
@@ -919,4 +963,3 @@
     opacity: 0.9;
   }
 }
-

@@ -7,6 +7,20 @@
     <div *ngIf="success" class="alert alert-success">{{ success }}</div>
   </div>
 
+  <div class="user-section" *ngIf="currentUser">
+    <div class="user-info">
+      <p class="label">Current user</p>
+      <h3>{{ currentUser.firstName }} {{ currentUser.lastName }}</h3>
+      <p class="meta">{{ currentUser.email }}</p>
+    </div>
+    <div class="user-order-stats">
+      <p>Orders placed: {{ orders.length }}</p>
+      <ng-container *ngIf="getLatestOrder() as latestOrder">
+        <p>Latest: {{ getOrderStatusLabel(latestOrder.status) }}</p>
+      </ng-container>
+    </div>
+  </div>
+
   <!-- Two Column Layout -->
   <div class="order-layout">
     <!-- Left Column: Order Details -->
@@ -233,14 +247,16 @@
         </div>
         <div class="order-actions">
           <button 
-            *ngIf="order.status === 'pending'"
+            *ngIf="canCancelOrder(order)"
             (click)="cancelOrder(order.id!)"
             class="btn-cancel">
             Cancel Order
           </button>
+          <p *ngIf="order.status === 'pending' && !canCancelOrder(order)" class="cancel-warning">
+            Cancellation window (first 3 minutes) has closed.
+          </p>
         </div>
       </div>
     </div>
   </div>
 </div>
-

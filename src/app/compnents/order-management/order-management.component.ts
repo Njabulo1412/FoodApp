@@ -5,7 +5,7 @@ import { CartService } from '../../services/cart.service';
 import { OrderService } from '../../services/order.service';
 import { LocationService } from '../../services/location.service';
 import { PaymentService } from '../../services/payment.service';
-import { Order, OrderItem, Address } from '../../models/order.model';
+import { Order, OrderItem, Address, OrderStatus } from '../../models/order.model';
 import { CartItem } from '../../models/menu.model';
 import { Restaurant } from '../../models/restaurant.model';
 import { take } from 'rxjs';
@@ -26,6 +26,14 @@ export class OrderManagementComponent implements OnInit {
   paymentDetails: any = { cardNumber: '', cardHolder: '', expiryDate: '', cvv: '' };
   upiId: string = '';
   orders: Order[] = [];
+  statusLabels: Record<OrderStatus, string> = {
+    pending: 'Order In',
+    confirmed: 'Confirmed',
+    preparing: 'Processing',
+    ready: 'Ready',
+    delivered: 'Delivered',
+    cancelled: 'Cancelled'
+  };
   loading = false;
   error: string = '';
   success: string = '';
@@ -201,6 +209,31 @@ export class OrderManagementComponent implements OnInit {
       return false;
     }
     return this.paymentService.validateUPI(this.upiId);
+  }
+
+  getLatestOrder(): Order | null {
+    if (!this.orders.length) {
+      return null;
+    }
+    return this.orders[this.orders.length - 1];
+  }
+
+  getOrderStatusLabel(status: OrderStatus): string {
+    return this.statusLabels[status] ?? status;
+  }
+
+  canCancelOrder(order: Order): boolean {
+    if (order.status !== 'pending') {
+      return false;
+    }
+    if (!order.createdAt) {
+      return false;
+    }
+
+    const createdAt = new Date(order.createdAt).getTime();
+    const elapsed = Date.now() - createdAt;
+    const limitMs = 3 * 60 * 1000;
+    return elapsed <= limitMs;
   }
 
   cancelOrder(orderId: string): void {

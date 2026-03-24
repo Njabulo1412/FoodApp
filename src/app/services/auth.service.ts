@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { User, LoginRequest, AuthResponse } from '../models/user.model';
 
 @Injectable({
@@ -10,6 +10,8 @@ export class AuthService {
     JSON.parse(localStorage.getItem('currentUser') || 'null')
   );
   public currentUser$: Observable<User | null> = this.currentUserSubject.asObservable();
+
+  private readonly usersKey = 'lollysUsers';
 
   constructor() { }
 
@@ -41,6 +43,10 @@ export class AuthService {
       token: this.generateToken()
     };
 
+    const users = this.loadUsers();
+    users.push({ ...newUser, password: user.password });
+    this.saveUsers(users);
+
     this.saveUserToLocalStorage(newUser, response.token);
     this.currentUserSubject.next(newUser);
 
@@ -48,22 +54,20 @@ export class AuthService {
   }
 
   login(loginRequest: LoginRequest): Observable<AuthResponse> {
-    // Simulate API call
-    const user: User = {
-      id: this.generateId(),
-      firstName: 'John',
-      lastName: 'Doe',
-      email: loginRequest.email,
-      mobileNumber: '+1234567890'
-    };
+    const users = this.loadUsers();
+    const found = users.find(u => u.email === loginRequest.email);
+
+    if (!found || found.password !== loginRequest.password) {
+      return throwError(() => new Error('Invalid email or password'));
+    }
 
     const response: AuthResponse = {
-      user,
+      user: found,
       token: this.generateToken()
     };
 
-    this.saveUserToLocalStorage(user, response.token);
-    this.currentUserSubject.next(user);
+    this.saveUserToLocalStorage(found, response.token);
+    this.currentUserSubject.next(found);
 
     return of(response);
   }
@@ -103,5 +107,22 @@ export class AuthService {
   private saveUserToLocalStorage(user: User, token: string): void {
     localStorage.setItem('currentUser', JSON.stringify(user));
     localStorage.setItem('authToken', token);
+  }
+
+  private loadUsers(): User[] {
+    const stored = localStorage.getItem(this.usersKey);
+    if (!stored) {
+      return [];
+    }
+    try {
+      return JSON.parse(stored) as User[];
+    } catch {
+      localStorage.removeItem(this.usersKey);
+      return [];
+    }
+  }
+
+  private saveUsers(users: User[]): void {
+    localStorage.setItem(this.usersKey, JSON.stringify(users));
   }
 }
