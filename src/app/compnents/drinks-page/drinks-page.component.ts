@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { SOFT_DRINKS, WATER_SIZES, SLUSHY_SIZES, HOT_DRINKS } from '../../data/drinks-data';
+import { DrinkSize, HotDrinkOption, SOFT_DRINKS, WATER_SIZES, SLUSHY_SIZES, HOT_DRINKS } from '../../data/drinks-data';
 import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../models/menu.model';
 import { MenuCard } from '../../data/menu-categories';
 import { menuCardToMenuItem } from '../../utils/menu-card-utils';
+
+type HotDrinkSize = 'small' | 'medium' | 'large';
 
 @Component({
   selector: 'app-drinks-page',
@@ -27,33 +29,33 @@ export class DrinksPageComponent {
     this.cartService.addToCart(cartItem);
   }
 
-  addDrinkCombo(type: 'soft' | 'water' | 'slushy' | 'hot'): void {
-    const templates: Record<string, MenuCard> = {
-      soft: {
-        name: 'Soft Drink Combo',
-        price: '15,00',
-        description: 'A fizzy can to match your roll.',
-        image: 'assets/coca-cola-cold-drink-717.jpg'
-      },
-      water: {
-        name: 'Water Bottle',
-        price: '10,00',
-        description: 'Pure bottled water.',
-        image: 'assets/coca-cola-cold-drink-717.jpg'
-      },
-      slushy: {
-        name: 'Slushy (Medium)',
-        price: '15,00',
-        description: 'Chilled slushy pick.',
-        image: 'assets/wings.jpg'
-      },
-      hot: {
-        name: 'Hot Coffee',
-        price: '12,00',
-        description: 'Steaming coffee.',
-        image: 'assets/chips.jpeg'
-      }
-    };
-    this.addToCart(templates[type]);
+  private createDrinkCard(name: string, price: string, description: string): MenuCard {
+    return { name, price, description };
+  }
+
+  addSoftDrinkToCart(drink: DrinkSize): void {
+    const title = `Soft Drink • ${drink.size}${drink.format ? ` (${drink.format})` : ''}`;
+    const card = this.createDrinkCard(title, drink.price, `Refreshing ${drink.format?.toLowerCase() ?? 'drink'}`);
+    this.addToCart(card);
+  }
+
+  addWaterToCart(water: DrinkSize): void {
+    const title = `Water • ${water.size}`;
+    const card = this.createDrinkCard(title, water.price, 'Pure bottled water');
+    this.addToCart(card);
+  }
+
+  addSlushyToCart(slushy: DrinkSize): void {
+    const title = `Slushy • ${slushy.size}`;
+    const card = this.createDrinkCard(title, slushy.price, 'Chilled slushy');
+    this.addToCart(card);
+  }
+
+  addHotDrinkToCart(drink: HotDrinkOption, size: HotDrinkSize): void {
+    const formattedSize = size.charAt(0).toUpperCase() + size.slice(1);
+    const title = `${drink.name} • ${formattedSize}`;
+    const price = drink[size];
+    const card = this.createDrinkCard(title, price, `Hot ${drink.name.toLowerCase()} (${formattedSize})`);
+    this.addToCart(card);
   }
 }

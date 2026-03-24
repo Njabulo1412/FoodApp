@@ -4,6 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CartWidgetComponent } from './compnents/cart-widget/cart-widget.component';
 import { LANDINGPAGEComponent } from './compnents/landingpage/landingpage.component';
 import { LoginComponent } from './compnents/login/login.component';
 import { RegisterComponent } from './compnents/register/register.component';
@@ -27,6 +28,7 @@ import { CustomizationPageComponent } from './compnents/customization-page/custo
 @NgModule({
   declarations: [
     AppComponent,
+    CartWidgetComponent,
     LANDINGPAGEComponent,
     LoginComponent,
     RegisterComponent,

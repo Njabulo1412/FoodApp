@@ -11,62 +11,86 @@
       <h2>Soft drinks</h2>
       <div class="table">
         <div class="table-row table-head">
+          <span class="photo-head">Photo</span>
           <span>Size</span>
-            <span>Format</span>
-            <span>Price</span>
-          </div>
-          <div class="table-row" *ngFor="let drink of softDrinks">
-            <span>{{ drink.size }}</span>
-            <span>{{ drink.format }}</span>
-            <span>{{ drink.price }}</span>
-          </div>
-        <button type="button" class="btn-add-cart" (click)="addDrinkCombo('soft')">Add to cart</button>
+          <span>Format</span>
+          <span>Price</span>
+          <span class="action-head">Action</span>
+        </div>
+        <div class="table-row" *ngFor="let drink of softDrinks">
+          <span class="photo-cell">
+            <img [src]="drink.image || 'assets/coca-cola-cold-drink-717.jpg'" [alt]="drink.size + ' soft drink'" />
+          </span>
+          <span>{{ drink.size }}</span>
+          <span>{{ drink.format }}</span>
+          <span>{{ drink.price }}</span>
+          <button type="button" class="btn-add-cart" (click)="addSoftDrinkToCart(drink)">Add to cart</button>
+        </div>
       </div>
     </section>
     <section>
       <h2>Water</h2>
       <div class="table">
         <div class="table-row table-head">
+          <span class="photo-head">Photo</span>
           <span>Size</span>
           <span>Price</span>
+          <span class="action-head">Action</span>
         </div>
         <div class="table-row" *ngFor="let water of waterSizes">
+          <span class="photo-cell">
+            <img [src]="water.image || 'assets/still water.jpeg'" [alt]="water.size + ' water'" />
+          </span>
           <span>{{ water.size }}</span>
           <span>{{ water.price }}</span>
+          <button type="button" class="btn-add-cart" (click)="addWaterToCart(water)">Add to cart</button>
         </div>
-        <button type="button" class="btn-add-cart" (click)="addDrinkCombo('water')">Add to cart</button>
       </div>
     </section>
     <section>
       <h2>Slushy</h2>
       <div class="table">
         <div class="table-row table-head">
+          <span class="photo-head">Photo</span>
           <span>Size</span>
           <span>Price</span>
+          <span class="action-head">Action</span>
         </div>
         <div class="table-row" *ngFor="let slushy of slushySizes">
+          <span class="photo-cell">
+            <img [src]="slushy.image || 'assets/drink 1.jpeg'" [alt]="slushy.size + ' slushy'" />
+          </span>
           <span>{{ slushy.size }}</span>
           <span>{{ slushy.price }}</span>
+          <button type="button" class="btn-add-cart" (click)="addSlushyToCart(slushy)">Add to cart</button>
         </div>
-        <button type="button" class="btn-add-cart" (click)="addDrinkCombo('slushy')">Add to cart</button>
       </div>
     </section>
     <section>
       <h2>Hot drinks</h2>
       <div class="table">
         <div class="table-row table-head">
+          <span class="photo-head">Photo</span>
           <span>Drink</span>
           <span>Small</span>
           <span>Medium</span>
           <span>Large</span>
+          <span class="action-head">Action</span>
         </div>
         <div class="table-row" *ngFor="let drink of hotDrinks">
+          <span class="photo-cell">
+            <img [src]="drink.image || 'assets/vienna.jpeg'" [alt]="drink.name + ' hot drink'" />
+          </span>
           <span>{{ drink.name }}</span>
           <span>{{ drink.small }}</span>
           <span>{{ drink.medium }}</span>
           <span>{{ drink.large }}</span>
+          <div class="hot-actions">
+            <button type="button" class="btn-add-cart btn-add-cart--compact" (click)="addHotDrinkToCart(drink, 'small')">Small</button>
+            <button type="button" class="btn-add-cart btn-add-cart--compact" (click)="addHotDrinkToCart(drink, 'medium')">Medium</button>
+            <button type="button" class="btn-add-cart btn-add-cart--compact" (click)="addHotDrinkToCart(drink, 'large')">Large</button>
+          </div>
         </div>
-        <button type="button" class="btn-add-cart" (click)="addDrinkCombo('hot')">Add to cart</button>
       </div>
     </section>
   </div>

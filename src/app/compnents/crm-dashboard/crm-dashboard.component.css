@@ -93,16 +93,21 @@
   gap: 10px;
 }
 
-.dashboard-sidebar nav a {
+.dashboard-sidebar nav .nav-link {
   padding: 10px 14px;
   border-radius: 12px;
   color: #475569;
-  text-decoration: none;
   font-weight: 600;
   transition: background 0.2s ease;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font: inherit;
 }
 
-.dashboard-sidebar nav a.active {
+.dashboard-sidebar nav .nav-link.active {
   color: #e01d1d;
   background: rgba(224, 29, 29, 0.1);
 }
@@ -374,4 +379,118 @@
   .dashboard-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.order-panel {
+  background: #fff;
+  border-radius: 26px;
+  padding: 26px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.order-panel .panel-heading {
+  margin: 0;
+}
+
+.panel-heading .badge-soft {
+  background: rgba(56, 189, 248, 0.18);
+  color: #0284c7;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.status-grid article {
+  background: #f8fafc;
+  border-radius: 18px;
+  padding: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.order-panel .label {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+.order-panel .value {
+  font-size: 1.8rem;
+  margin: 6px 0;
+  color: #0f172a;
+}
+
+.recent-orders {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recent-orders header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.recent-orders header p {
+  margin: 2px 0 0;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.recent-orders .empty {
+  margin: 0;
+  font-style: italic;
+  color: #475569;
+}
+
+.order-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 16px;
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.order-info strong {
+  display: block;
+  color: #0f172a;
+}
+
+.order-info small {
+  color: #475569;
+}
+
+.status-pill {
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-pill.order-in {
+  background: rgba(248, 250, 252, 0.8);
+  color: #475569;
+  border: 1px solid rgba(71, 85, 105, 0.2);
+}
+
+.status-pill.processing {
+  background: rgba(251, 191, 36, 0.18);
+  color: #b45309;
+  border: 1px solid rgba(252, 211, 77, 0.5);
+}
+
+.status-pill.ready {
+  background: rgba(16, 185, 129, 0.18);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.4);
 }

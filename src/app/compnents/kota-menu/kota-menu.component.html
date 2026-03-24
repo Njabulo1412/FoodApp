@@ -2,7 +2,12 @@
   <h1>Kota Menu</h1>
   <p class="lead">South African k near-perfect loaded corners.</p>
   <div class="kota-grid">
-    <article *ngFor="let kota of kotas" class="kota-card" tabindex="0" role="button" routerLink="/rolls">
+    <article
+      *ngFor="let kota of kotas"
+      class="kota-card"
+      tabindex="0"
+      (click)="selectKota(kota.name)"
+      [ngClass]="{ 'is-active': selectedKota === kota.name }">
       <div class="kota-image">
         <img [src]="kota.image" [alt]="kota.name" />
       </div>
@@ -12,6 +17,12 @@
       </header>
       <p class="description">{{ kota.description }}</p>
       <p class="rating" *ngIf="kota.rating">{{ kota.rating }}</p>
+      <button
+        type="button"
+        class="add-to-cart"
+        (click)="addToCart(kota); $event.stopPropagation();">
+        Add to cart
+      </button>
     </article>
   </div>
 </div>

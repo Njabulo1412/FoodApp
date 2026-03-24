@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { Order } from '../models/order.model';
+import { Order, OrderStatus } from '../models/order.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +8,7 @@ import { Order } from '../models/order.model';
 export class OrderService {
   private orders$ = new BehaviorSubject<Order[]>([]);
   private currentOrder$ = new BehaviorSubject<Order | null>(null);
+  private statusTimers: Record<string, ReturnType<typeof setTimeout>[]> = {};
 
   constructor() { }
 
@@ -20,6 +21,7 @@ export class OrderService {
     orders.push(order);
     this.orders$.next(orders);
     this.currentOrder$.next(order);
+    this.scheduleOrderProgress(order.id!);
 
     return of(order);
   }
@@ -45,6 +47,9 @@ export class OrderService {
     if (orderIndex !== -1) {
       orders[orderIndex].status = status;
       this.orders$.next(orders);
+      if (this.currentOrder$.value?.id === orderId) {
+        this.currentOrder$.next(orders[orderIndex]);
+      }
       return of(true);
     }
     
@@ -53,6 +58,29 @@ export class OrderService {
 
   cancelOrder(orderId: string): Observable<boolean> {
     return this.updateOrderStatus(orderId, 'cancelled');
+  }
+
+  private scheduleOrderProgress(orderId: string): void {
+    this.clearOrderTimers(orderId);
+    const stages: OrderStatus[] = ['confirmed', 'preparing', 'ready'];
+    stages.forEach((status, index) => {
+      const timer = setTimeout(() => {
+        this.updateOrderStatus(orderId, status);
+      }, (index + 1) * 4000);
+      if (!this.statusTimers[orderId]) {
+        this.statusTimers[orderId] = [];
+      }
+      this.statusTimers[orderId].push(timer);
+    });
+  }
+
+  private clearOrderTimers(orderId: string): void {
+    const timers = this.statusTimers[orderId];
+    if (!timers) {
+      return;
+    }
+    timers.forEach(timer => clearTimeout(timer));
+    delete this.statusTimers[orderId];
   }
 
   getCurrentOrder(): Order | null {

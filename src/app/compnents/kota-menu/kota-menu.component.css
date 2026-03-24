@@ -54,6 +54,29 @@
   box-shadow: 0 25px 45px rgba(0, 0, 0, 0.12);
 }
 
+.kota-card.is-active {
+  border-color: #e01d1d;
+}
+
+.add-to-cart {
+  margin-top: 12px;
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e01d1d, #ff793e);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-to-cart:focus,
+.add-to-cart:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(224, 29, 29, 0.2);
+}
+
 .price {
   font-weight: 700;
   color: #e01d1d;

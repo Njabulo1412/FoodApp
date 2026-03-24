@@ -1,0 +1,26 @@
+<div class="cart-widget" [class.open]="isOpen">
+  <button type="button" class="cart-toggle" (click)="toggle()">
+    <span>Cart</span>
+    <span class="cart-count">{{ cart.length }}</span>
+    <span class="cart-total">R {{ getCartTotal().toFixed(2) }}</span>
+  </button>
+
+  <div class="cart-panel" *ngIf="isOpen">
+    <p class="empty" *ngIf="!cart.length">Your cart is empty yet.</p>
+    <div class="item" *ngFor="let item of cart">
+      <div>
+        <strong>{{ item.menuItem.name }}</strong>
+        <p class="meta">
+          {{ item.quantity }} × R{{ item.menuItem.price.toFixed(2) }}
+          <span *ngIf="item.selectedToppings.length">(+ {{ item.selectedToppings.length }} toppings)</span>
+        </p>
+      </div>
+      <span class="item-total">R {{ (item.menuItem.price + getToppingTotal(item)) * item.quantity | number:'1.2-2' }}</span>
+    </div>
+
+    <div class="panel-footer">
+      <p>Total: <strong>R {{ getCartTotal().toFixed(2) }}</strong></p>
+      <button type="button" class="btn-view-cart" (click)="viewCartPage()">View cart page</button>
+    </div>
+  </div>
+</div>

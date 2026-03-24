@@ -19,12 +19,41 @@
         <span>SoftMaterial</span>
       </div>
       <nav>
-        <a class="active">Dashboard</a>
-        <a>Support</a>
-        <a>Components</a>
-        <a>Apps & Widgets</a>
-        <a>Tables</a>
-        <a>Authentication</a>
+        <button
+          type="button"
+          class="nav-link"
+          [class.active]="activeTab === 'dashboard'"
+          (click)="setActiveTab('dashboard')">
+          Dashboard
+        </button>
+        <button
+          type="button"
+          class="nav-link"
+          [class.active]="activeTab === 'orders-in'"
+          (click)="setActiveTab('orders-in')">
+          Orders In
+        </button>
+        <button
+          type="button"
+          class="nav-link"
+          [class.active]="activeTab === 'processing'"
+          (click)="setActiveTab('processing')">
+          Processing
+        </button>
+        <button
+          type="button"
+          class="nav-link"
+          [class.active]="activeTab === 'ready'"
+          (click)="setActiveTab('ready')">
+          Ready
+        </button>
+        <button
+          type="button"
+          class="nav-link"
+          [class.active]="activeTab === 'authentication'"
+          (click)="setActiveTab('authentication')">
+          Authentication
+        </button>
       </nav>
       <div class="sidebar-card">
         <p>Control panel summary</p>
@@ -125,6 +154,48 @@
             </li>
           </ul>
         </article>
+      </section>
+
+      <section class="order-panel" id="order-panel">
+        <div class="panel-heading">
+          <div>
+            <h2>Live order states</h2>
+            <p>See how each order flows through Order In, Processing, and Ready.</p>
+          </div>
+          <span class="badge badge-soft">Real-time</span>
+        </div>
+
+        <div class="status-grid">
+          <article *ngFor="let status of liveOrderStatuses">
+            <p class="label">{{ status.label }}</p>
+            <p class="value">{{ status.count }}</p>
+            <p class="meta">{{ status.description }}</p>
+          </article>
+        </div>
+
+        <div class="recent-orders">
+          <header>
+            <h3>{{ getTabTitle() }}</h3>
+            <p>{{ getTabSubtitle() }}</p>
+          </header>
+          <ng-container *ngIf="activeTab === 'authentication'">
+            <p class="empty">
+              Switch to Orders In, Processing, or Ready to review live order states. Authentication settings live in the access panel.
+            </p>
+          </ng-container>
+          <ng-container *ngIf="activeTab !== 'authentication'">
+            <p class="empty" *ngIf="!currentFilteredOrders.length">No orders yet in this state.</p>
+            <div *ngFor="let order of currentFilteredOrders" class="order-row">
+              <div class="order-info">
+                <strong>{{ order.id }}</strong>
+                <small>{{ order.items.length }} items · {{ order.createdAt | date:'short' }}</small>
+              </div>
+              <span [ngClass]="orderStatusClass(order.status)">
+                {{ getDisplayLabel(order.status) }}
+              </span>
+            </div>
+          </ng-container>
+        </div>
       </section>
     </main>
   </div>
