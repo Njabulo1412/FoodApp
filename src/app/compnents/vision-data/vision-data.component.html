@@ -38,21 +38,420 @@
       <input type="text" placeholder="Search all data..." />
     </div>
 
-        <div class="cards-grid">
-          <article
-            *ngFor="let insight of insights"
-            class="insight-card"
-            (click)="selectInsight(insight)"
-            [class.selected]="activeInsight === insight.title">
-            <div class="card-content">
-              <p class="card-title">{{ insight.title }}</p>
-              <h3>{{ insight.value }}</h3>
-              <p class="card-meta">{{ insight.meta }}</p>
-            </div>
-        <div class="chart-icon" [ngClass]="insight.type">
-          <span>{{ insight.type }}</span>
+    <div class="cards-grid">
+      <article
+        *ngFor="let insight of insights"
+        class="insight-card"
+        (click)="selectInsight(insight)"
+        [class.selected]="activeInsight === insight.title">
+        <div class="card-content">
+          <p class="card-title">{{ insight.title }}</p>
+          <h3>{{ insight.value }}</h3>
+          <p class="card-meta">{{ insight.meta }}</p>
+        </div>
+    <div class="chart-icon" [ngClass]="insight.type">
+      <span>{{ insight.type }}</span>
+    </div>
+  </article>
+</div>
+
+    <section class="monitoring-data">
+      <header>
+        <h2>Monitoring Data</h2>
+        <p>Operational intelligence, CRM snapshots, and strategic next actions for the admin experience.</p>
+      </header>
+
+      <article class="monitoring-section">
+        <h3>🔥 1. MAIN ADMIN DASHBOARD (OVERVIEW)</h3>
+        <p>🎯 Purpose: Quick business performance view</p>
+        <div class="metrics-grid">
+          <div class="metric">
+            <p>Total Revenue (Monthly)</p>
+            <strong>R 128,450</strong>
+          </div>
+          <div class="metric">
+            <p>Orders Today</p>
+            <strong>186</strong>
+          </div>
+          <div class="metric">
+            <p>Active Users</p>
+            <strong>1,240</strong>
+          </div>
+          <div class="metric">
+            <p>New Customers (Month)</p>
+            <strong>312</strong>
+          </div>
+          <div class="metric">
+            <p>Avg Order Value</p>
+            <strong>R 68.90</strong>
+          </div>
+          <div class="metric">
+            <p>Delivery Success Rate</p>
+            <strong>94%</strong>
+          </div>
+        </div>
+        <p class="graph-title">📈 Graphs to Include</p>
+        <div class="graph-details">
+          <div class="graph-block">
+            <strong>Revenue Growth (Line Graph)</strong>
+            <p>Jan: R 45,000<br />
+              Feb: R 72,000<br />
+              Mar: R 128,450</p>
+          </div>
+          <div class="graph-block">
+            <strong>Daily Orders (Bar Chart)</strong>
+            <p>Mon: 120 · Tue: 140 · Wed: 160<br />
+              Thu: 180 · Fri: 220 · Sat: 260 · Sun: 200</p>
+          </div>
+          <div class="graph-block">
+            <strong>Top Selling Categories (Pie Chart)</strong>
+            <p>Burgers – 35% · Pizza – 25% · Drinks – 15%<br />
+              Chicken – 15% · Desserts – 10%</p>
+          </div>
         </div>
       </article>
-    </div>
+
+      <article class="monitoring-section">
+        <h3>🧱 2. DATABASE STRUCTURE</h3>
+        <p>🗄️ Core Tables</p>
+        <div class="db-grid">
+          <div class="db-table">
+            <h4>1. Users Table</h4>
+            <ul>
+              <li>user_id (PK)</li>
+              <li>name</li>
+              <li>email</li>
+              <li>phone</li>
+              <li>location</li>
+              <li>signup_date</li>
+              <li>loyalty_points</li>
+            </ul>
+          </div>
+          <div class="db-table">
+            <h4>2. Orders Table</h4>
+            <ul>
+              <li>order_id (PK)</li>
+              <li>user_id (FK)</li>
+              <li>order_date</li>
+              <li>total_amount</li>
+              <li>payment_method</li>
+              <li>order_status</li>
+              <li>delivery_time</li>
+            </ul>
+          </div>
+          <div class="db-table">
+            <h4>3. Order_Items Table</h4>
+            <ul>
+              <li>item_id (PK)</li>
+              <li>order_id (FK)</li>
+              <li>product_id (FK)</li>
+              <li>quantity</li>
+              <li>price</li>
+            </ul>
+          </div>
+          <div class="db-table">
+            <h4>4. Products Table</h4>
+            <ul>
+              <li>product_id (PK)</li>
+              <li>name</li>
+              <li>category</li>
+              <li>price</li>
+              <li>stock</li>
+              <li>rating</li>
+            </ul>
+          </div>
+          <div class="db-table">
+            <h4>5. Payments Table</h4>
+            <ul>
+              <li>payment_id (PK)</li>
+              <li>order_id (FK)</li>
+              <li>payment_status</li>
+              <li>payment_date</li>
+              <li>method (Card / Cash / EFT)</li>
+            </ul>
+          </div>
+          <div class="db-table">
+            <h4>6. Reviews Table</h4>
+            <ul>
+              <li>review_id</li>
+              <li>user_id</li>
+              <li>product_id</li>
+              <li>rating (1–5)</li>
+              <li>comment</li>
+              <li>date</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="monitoring-section">
+        <h3>💳 3. TRANSACTIONAL DATA (REALISTIC SAMPLE)</h3>
+        <h4>📅 Today’s Sales Snapshot</h4>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Payment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>10231</td><td>Simphiwe M</td><td>R 120</td><td>Delivered</td><td>Card</td></tr>
+              <tr><td>10232</td><td>Thabo N</td><td>R 85</td><td>Preparing</td><td>Cash</td></tr>
+              <tr><td>10233</td><td>Lindiwe K</td><td>R 150</td><td>Delivered</td><td>EFT</td></tr>
+              <tr><td>10234</td><td>Musa D</td><td>R 60</td><td>Cancelled</td><td>Card</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h4>💰 Revenue Breakdown</h4>
+        <ul class="inline-list">
+          <li>Card Payments: R 78,000 (61%)</li>
+          <li>Cash: R 30,000 (23%)</li>
+          <li>EFT: R 20,450 (16%)</li>
+        </ul>
+        <h4>⏱️ Delivery Performance</h4>
+        <ul class="inline-list">
+          <li>Avg Delivery Time: 32 mins</li>
+          <li>Late Deliveries: 12%</li>
+          <li>On-Time: 88%</li>
+        </ul>
+      </article>
+
+      <article class="monitoring-section">
+        <h3>📋 4. CUSTOMER SURVEYS SYSTEM</h3>
+        <p>🎯 Purpose: Collect feedback → improve service → increase retention</p>
+        <p>📊 Survey Questions</p>
+        <ul class="survey-questions">
+          <li>Rate your experience (1–5)</li>
+          <li>Was delivery on time? (Yes/No)</li>
+          <li>Food quality rating</li>
+          <li>Would you recommend us? (NPS Score 1–10)</li>
+          <li>What should we improve?</li>
+        </ul>
+        <h4>📈 Survey Results (Example Data)</h4>
+        <ul class="inline-list">
+          <li>⭐ Avg Rating: 4.3 / 5</li>
+          <li>👍 Recommendation Rate: 82%</li>
+          <li>🚚 Delivery Satisfaction: 76%</li>
+          <li>🍔 Food Quality Score: 4.5 / 5</li>
+        </ul>
+        <div class="graph-details">
+          <div class="graph-block">
+            <strong>Customer Satisfaction Trend</strong>
+            <p>Week 1: 4.1 · Week 2: 4.2 · Week 3: 4.3 · Week 4: 4.4</p>
+          </div>
+          <div class="graph-block">
+            <strong>NPS Score Breakdown</strong>
+            <p>Promoters: 60% · Passive: 25% · Detractors: 15%</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="monitoring-section">
+        <h3>🤝 5. CRM MONITORING DASHBOARD</h3>
+        <p>🎯 Purpose: Track customers + increase sales</p>
+        <p>👥 Customer Segments</p>
+        <ul class="inline-list">
+          <li>🟢 High-Value Customers (Spent &gt; R1000): 145 users</li>
+          <li>🟡 Regular Customers: 520 users</li>
+          <li>🔴 At-Risk Customers (Inactive 30+ days): 210 users</li>
+        </ul>
+        <p>📊 CRM Metrics</p>
+        <ul class="inline-list">
+          <li>Customer Retention Rate: 68%</li>
+          <li>Customer Churn Rate: 12%</li>
+          <li>Repeat Purchase Rate: 54%</li>
+        </ul>
+        <h4>📈 CRM Graphs</h4>
+        <div class="graph-details">
+          <div class="graph-block">
+            <strong>Customer Growth (Line Chart)</strong>
+            <p>Jan: 500 · Feb: 820 · Mar: 1240</p>
+          </div>
+          <div class="graph-block">
+            <strong>Customer Lifetime Value (CLV)</strong>
+            <p>Avg CLV: R 950 per customer</p>
+          </div>
+        </div>
+        <h4>🔔 CRM Alerts System</h4>
+        <ul class="survey-questions">
+          <li>⚠️ "Customer hasn’t ordered in 14 days"</li>
+          <li>🎯 "High spender — send discount"</li>
+          <li>💬 "Bad review — follow up immediately"</li>
+        </ul>
+      </article>
+      <article class="monitoring-section">
+        <h3>🧠 6. CUSTOMER BEHAVIOR ANALYSIS DASHBOARD</h3>
+        <p>🎯 Purpose: Understand how customers think, buy, and interact → increase sales & retention</p>
+        <div class="metrics-grid">
+          <div class="metric">
+            <p>Daily Active Users (DAU)</p>
+            <strong>420</strong>
+          </div>
+          <div class="metric">
+            <p>Monthly Active Users (MAU)</p>
+            <strong>1,240</strong>
+          </div>
+          <div class="metric">
+            <p>Avg Session Time</p>
+            <strong>6m 45s</strong>
+          </div>
+          <div class="metric">
+            <p>Bounce Rate</p>
+            <strong>28%</strong>
+          </div>
+          <div class="metric">
+            <p>Avg Orders per User</p>
+            <strong>3.2 / month</strong>
+          </div>
+          <div class="metric">
+            <p>Cart Abandonment Rate</p>
+            <strong>22%</strong>
+          </div>
+          <div class="metric">
+            <p>Repeat Purchase Rate</p>
+            <strong>54%</strong>
+          </div>
+          <div class="metric">
+            <p>Peak Ordering Time</p>
+            <strong>18:00 – 21:00</strong>
+          </div>
+        </div>
+        <p class="graph-title">📈 Behavior Graphs</p>
+        <div class="graph-details">
+          <div class="graph-block">
+            <strong>Peak Order Time (Line Graph)</strong>
+            <p>12PM: 40 · 2PM: 65 · 4PM: 80<br />
+              6PM: 140 · 8PM: 180 · 10PM: 90</p>
+            <p class="insight-note">👉 Insight: Most users order at night → target dinner promos</p>
+          </div>
+          <div class="graph-block">
+            <strong>Customer Order Frequency</strong>
+            <p>1 Order: 35% · 2-3 Orders: 40% · 4-6 Orders: 20% · 7+ Orders: 5%</p>
+            <p class="insight-note">👉 Insight: Majority are mid-level loyal users → upsell opportunity</p>
+          </div>
+          <div class="graph-block">
+            <strong>Device Usage</strong>
+            <p>Mobile: 85% · Desktop: 10% · Tablet: 5%</p>
+            <p class="insight-note">👉 Insight: Focus on mobile optimization</p>
+          </div>
+        </div>
+        <h4>🧍 Customer Behavior Segments</h4>
+        <div class="behavior-segments">
+          <div>
+            <h5>🔥 High-Value Customers</h5>
+            <p>Spend: R1000+ · Orders frequently · Order combos · Prefer fast delivery</p>
+            <p class="segment-strategy">Strategy: VIP discounts · Loyalty rewards</p>
+          </div>
+          <div>
+            <h5>🟡 Regular Customers</h5>
+            <p>Spend: R300–R1000 · Order weekly · Sensitive to price</p>
+            <p class="segment-strategy">Strategy: Bundle deals · Promotions</p>
+          </div>
+          <div>
+            <h5>🔴 At-Risk Customers</h5>
+            <p>No order in 30+ days · Browses but doesn’t buy</p>
+            <p class="segment-strategy">Strategy: Push notifications · Discount coupons (e.g. R20 OFF)</p>
+          </div>
+        </div>
+        <h4>🧭 Customer Journey Analysis</h4>
+        <div class="journey-table">
+          <div>
+            <strong>Funnel Breakdown</strong>
+            <table>
+              <tr><th>Stage</th><th>Users</th><th>Drop-off</th></tr>
+              <tr><td>App Visits</td><td>2,500</td><td>—</td></tr>
+              <tr><td>View Menu</td><td>2,000</td><td>20%</td></tr>
+              <tr><td>Add to Cart</td><td>1,200</td><td>40%</td></tr>
+              <tr><td>Checkout</td><td>900</td><td>25%</td></tr>
+              <tr><td>Payment Complete</td><td>700</td><td>22%</td></tr>
+            </table>
+          </div>
+          <div>
+            <strong>Funnel Insight</strong>
+            <p>👉 Biggest drop is at Add to Cart → Checkout</p>
+            <p>✔ Possible reasons: Delivery fee too high · Complicated checkout · No payment options</p>
+          </div>
+        </div>
+        <h4>🔍 Behavior Patterns</h4>
+        <ul class="survey-questions">
+          <li>🕒 Time-Based Behavior: Lunch orders drive Pizza & Drinks; Dinner: Burgers & Chicken; Late night: Snacks & Desserts</li>
+          <li>💸 Spending Behavior: Avg Basket Size 2.4 items · Most common combo: Burger + Fries + Drink</li>
+          <li>🔁 Repeat Behavior: 54% reorder within 7 days · 30% reorder the same item</li>
+          <li class="insight-note">👉 Insight: Add “Order Again” button (very important feature)</li>
+        </ul>
+        <h4>📡 Tracking Customer Behavior (System)</h4>
+        <p>Add this to your database:</p>
+        <p>🗄️ User Behavior Table</p>
+        <ul class="survey-questions">
+          <li>behavior_id (PK)</li>
+          <li>user_id (FK)</li>
+          <li>action (view / add_to_cart / purchase)</li>
+          <li>product_id</li>
+          <li>timestamp</li>
+          <li>device</li>
+          <li>session_id</li>
+        </ul>
+        <h4>🤖 Smart CRM + Behavior Automation</h4>
+        <ul class="survey-questions">
+          <li>🏷️ If user views item 3 times → 🔔 Send discount</li>
+          <li>🛒 If cart abandoned: After 1 hour → 📩 Reminder</li>
+          <li>🎁 If frequent buyer → Loyalty reward</li>
+        </ul>
+        <h4>📊 Customer Heatmap (UX Behavior)</h4>
+        <p>Track where users click, where they drop off.</p>
+        <p class="insight-note">👉 Insight Example: Users click “Add to Cart” a lot but leave at checkout → fix payment UX</p>
+        <h4>🚀 Advanced (Very Impressive)</h4>
+        <p>🔥 Predictive Behavior</p>
+        <p>System predicts who will order tonight, who will churn, and what product will sell more.</p>
+        <p>Example: 70% chance user buys burger → show burger first · User inactive 20 days → send promo</p>
+        <h4>🧩 How This Connects to CRM</h4>
+        <p>Customer Behavior feeds into CRM Dashboard for personalised marketing, retention, and sales growth.</p>
+        <p class="insight-note">💡 FINAL POWER STATEMENT: “Customer behaviour analytics enables the business to track user interactions, identify purchasing patterns, and personalise customer experiences. By leveraging this data, the system improves customer retention, increases conversion rates, and enhances overall operational efficiency.”</p>
+        <p>✅ If you want next: I can design this as a real admin dashboard UI, turn everything into a PDF assignment/report, or build actual code (React + database). Just say “Make it a dashboard UI” or “Turn into PDF”.</p>
+      </article>
+
+      <article class="monitoring-section">
+        <h3>🚀 HOW TO CONNECT THIS TO YOUR WEBSITE</h3>
+        <p>Based on your app (like Food Ordering App UI):</p>
+        <p>Backend Stack Idea:</p>
+        <ul class="survey-questions">
+          <li>Database: PostgreSQL / Firebase</li>
+          <li>API: Node.js / Express</li>
+          <li>Dashboard: React (Admin Panel)</li>
+        </ul>
+        <p>Integration Flow</p>
+        <ul class="survey-questions">
+          <li>User places order → stored in Orders Table</li>
+          <li>Payment → stored in Payments Table</li>
+          <li>Feedback → goes to Surveys + Reviews</li>
+          <li>CRM → analyzes:
+            <ul class="nested-list">
+              <li>buying frequency</li>
+              <li>spending</li>
+              <li>behavior</li>
+            </ul>
+          </li>
+        </ul>
+      </article>
+
+      <article class="monitoring-section">
+        <h3>💡 NEXT LEVEL (To Impress Your Lecturer)</h3>
+        <ul class="survey-questions">
+          <li>🔥 AI Recommendation Engine (“People who bought burgers also buy drinks”)</li>
+          <li>📍 Real-time Delivery Tracking</li>
+          <li>🎯 Personalized Offers (based on customer behavior)</li>
+        </ul>
+        <p>✅ If you want next step:</p>
+        <p>I can design the actual UI (screens) for:</p>
+        <p>Admin dashboard (Figma style)<br />
+           Database ERD diagram<br />
+           Full working system architecture</p>
+        <p>Just say: “Design the UI” or <strong>“Build full system”</strong></p>
+      </article>
+    </section>
   </section>
 </div>
