@@ -35,19 +35,19 @@ export class DrinksPageComponent {
 
   addSoftDrinkToCart(drink: DrinkSize): void {
     const title = `Soft Drink • ${drink.size}${drink.format ? ` (${drink.format})` : ''}`;
-    const card = this.createDrinkCard(title, drink.price, `Refreshing ${drink.format?.toLowerCase() ?? 'drink'}`);
+    const card = this.createDrinkCard(title, this.formatDrinkPrice(drink.price), `Refreshing ${drink.format?.toLowerCase() ?? 'drink'}`);
     this.addToCart(card);
   }
 
   addWaterToCart(water: DrinkSize): void {
     const title = `Water • ${water.size}`;
-    const card = this.createDrinkCard(title, water.price, 'Pure bottled water');
+    const card = this.createDrinkCard(title, this.formatDrinkPrice(water.price), 'Pure bottled water');
     this.addToCart(card);
   }
 
   addSlushyToCart(slushy: DrinkSize): void {
     const title = `Slushy • ${slushy.size}`;
-    const card = this.createDrinkCard(title, slushy.price, 'Chilled slushy');
+    const card = this.createDrinkCard(title, this.formatDrinkPrice(slushy.price), 'Chilled slushy');
     this.addToCart(card);
   }
 
@@ -55,7 +55,11 @@ export class DrinksPageComponent {
     const formattedSize = size.charAt(0).toUpperCase() + size.slice(1);
     const title = `${drink.name} • ${formattedSize}`;
     const price = drink[size];
-    const card = this.createDrinkCard(title, price, `Hot ${drink.name.toLowerCase()} (${formattedSize})`);
+    const card = this.createDrinkCard(title, this.formatDrinkPrice(price), `Hot ${drink.name.toLowerCase()} (${formattedSize})`);
     this.addToCart(card);
+  }
+
+  private formatDrinkPrice(price: number): string {
+    return `R${price.toFixed(2)}`;
   }
 }

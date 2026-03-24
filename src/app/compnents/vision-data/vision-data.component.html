@@ -1,57 +1,58 @@
-<div class="vision-data">
-  <section class="hero-card">
-    <h1>CRM Data Journey</h1>
-    <p>Each interaction becomes insight that powers communication, segmentation, and service.</p>
-  </section>
+<div class="vision-data data-board">
+  <aside class="data-sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-logo">Insightly</div>
+      <p class="sidebar-label">CRM</p>
+    </div>
+    <ul class="sidebar-nav">
+      <li
+        *ngFor="let link of sidebarLinks"
+        (click)="selectSidebar(link)"
+        [class.active]="activeLink === link">
+        <span class="icon">{{ link.icon }}</span>
+        <span>{{ link.label }}</span>
+      </li>
+    </ul>
+    <div class="sidebar-footer">
+      <button class="sidebar-cta">Actions</button>
+    </div>
+  </aside>
 
-  <section class="journey-card">
-    <h2>1. Data Journey</h2>
-    <ol>
-      <li *ngFor="let step of dataJourneySteps">{{ step }}</li>
-    </ol>
-  </section>
+  <section class="data-main">
+    <header class="board-header">
+      <div>
+        <h1>Business Insights Dashboard</h1>
+        <p>The CRM Data Journey and its KPI tiles.</p>
+      </div>
+      <div class="header-actions">
+        <button (click)="toggleActions()">Actions ⌄</button>
+        <div class="action-menu" *ngIf="actionsExpanded">
+          <button>Export</button>
+          <button>Refresh</button>
+          <button>Settings</button>
+        </div>
+      </div>
+    </header>
 
-  <section class="database-structure">
-    <h2>📁 Database Structure (Simple)</h2>
-    <div class="database-grid">
-      <article class="table-card" *ngFor="let table of databaseStructure">
-        <h3>{{ table.name }}</h3>
-        <ul>
-          <li *ngFor="let field of table.fields">{{ field }}</li>
-        </ul>
+    <div class="search-row">
+      <input type="text" placeholder="Search all data..." />
+    </div>
+
+        <div class="cards-grid">
+          <article
+            *ngFor="let insight of insights"
+            class="insight-card"
+            (click)="selectInsight(insight)"
+            [class.selected]="activeInsight === insight.title">
+            <div class="card-content">
+              <p class="card-title">{{ insight.title }}</p>
+              <h3>{{ insight.value }}</h3>
+              <p class="card-meta">{{ insight.meta }}</p>
+            </div>
+        <div class="chart-icon" [ngClass]="insight.type">
+          <span>{{ insight.type }}</span>
+        </div>
       </article>
     </div>
-  </section>
-
-  <section class="data-focus">
-    <article class="data-card">
-      <h2>🧠 Behavioural Data (MOST IMPORTANT)</h2>
-      <ul>
-        <li *ngFor="let point of behaviouralDataPoints">{{ point }}</li>
-      </ul>
-      <p class="insight-label">This tells you:</p>
-      <div class="insight-list">
-        <span>What customers are interested in</span>
-        <span>What is NOT working</span>
-      </div>
-    </article>
-    <article class="data-card">
-      <h2>💳 Transaction Data</h2>
-      <ul>
-        <li *ngFor="let point of transactionDataPoints">{{ point }}</li>
-      </ul>
-    </article>
-  </section>
-
-  <section class="monitoring-card">
-    <h2>📊 Monitoring</h2>
-    <p>
-      The dashboard pulls visit, order, and advertiser stats next to traffic-source trends so the
-      team can react when a promotion underperforms.
-    </p>
-    <p class="dashboard-label">Dashboard highlights:</p>
-    <ul class="dashboard-list">
-      <li *ngFor="let item of dashboardHighlights">{{ item }}</li>
-    </ul>
   </section>
 </div>

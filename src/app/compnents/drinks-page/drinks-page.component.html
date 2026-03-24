@@ -23,7 +23,7 @@
           </span>
           <span>{{ drink.size }}</span>
           <span>{{ drink.format }}</span>
-          <span>{{ drink.price }}</span>
+          <span>{{ drink.price | currency:'ZAR':'symbol':'1.2-2' }}</span>
           <button type="button" class="btn-add-cart" (click)="addSoftDrinkToCart(drink)">Add to cart</button>
         </div>
       </div>
@@ -42,7 +42,7 @@
             <img [src]="water.image || 'assets/still water.jpeg'" [alt]="water.size + ' water'" />
           </span>
           <span>{{ water.size }}</span>
-          <span>{{ water.price }}</span>
+          <span>{{ water.price | currency:'ZAR':'symbol':'1.2-2' }}</span>
           <button type="button" class="btn-add-cart" (click)="addWaterToCart(water)">Add to cart</button>
         </div>
       </div>
@@ -61,7 +61,7 @@
             <img [src]="slushy.image || 'assets/drink 1.jpeg'" [alt]="slushy.size + ' slushy'" />
           </span>
           <span>{{ slushy.size }}</span>
-          <span>{{ slushy.price }}</span>
+          <span>{{ slushy.price | currency:'ZAR':'symbol':'1.2-2' }}</span>
           <button type="button" class="btn-add-cart" (click)="addSlushyToCart(slushy)">Add to cart</button>
         </div>
       </div>
@@ -82,9 +82,9 @@
             <img [src]="drink.image || 'assets/vienna.jpeg'" [alt]="drink.name + ' hot drink'" />
           </span>
           <span>{{ drink.name }}</span>
-          <span>{{ drink.small }}</span>
-          <span>{{ drink.medium }}</span>
-          <span>{{ drink.large }}</span>
+          <span>{{ drink.small | currency:'ZAR':'symbol':'1.2-2' }}</span>
+          <span>{{ drink.medium | currency:'ZAR':'symbol':'1.2-2' }}</span>
+          <span>{{ drink.large | currency:'ZAR':'symbol':'1.2-2' }}</span>
           <div class="hot-actions">
             <button type="button" class="btn-add-cart btn-add-cart--compact" (click)="addHotDrinkToCart(drink, 'small')">Small</button>
             <button type="button" class="btn-add-cart btn-add-cart--compact" (click)="addHotDrinkToCart(drink, 'medium')">Medium</button>
