@@ -7,7 +7,7 @@
 
   <div class="cart-panel" *ngIf="isOpen">
     <p class="empty" *ngIf="!cart.length">Your cart is empty yet.</p>
-    <div class="item" *ngFor="let item of cart">
+    <div class="item" *ngFor="let item of cart; index as i">
       <div>
         <strong>{{ item.menuItem.name }}</strong>
         <p class="meta">
@@ -16,6 +16,7 @@
         </p>
       </div>
       <span class="item-total">R {{ (item.menuItem.price + getToppingTotal(item)) * item.quantity | number:'1.2-2' }}</span>
+      <button type="button" class="btn-remove" (click)="removeFromCart(i)">Remove</button>
     </div>
 
     <div class="panel-footer">

@@ -46,6 +46,10 @@ export class CartWidgetComponent implements OnInit, OnDestroy {
     this.close();
   }
 
+  removeFromCart(index: number): void {
+    this.cartService.removeItem(index);
+  }
+
   getToppingTotal(item: CartItem): number {
     return item.selectedToppings.reduce((total, topping) => total + topping.price, 0);
   }

@@ -232,7 +232,9 @@
 .btn-secondary {
   background: transparent;
   color: #e01d1d;
-  border: 1px solid #e01d1d;
+  border: 0px solid #e01d1d;
+  margin-bottom: 30px;
+  margin-top: 50;
 }
 
 .hero-visual {

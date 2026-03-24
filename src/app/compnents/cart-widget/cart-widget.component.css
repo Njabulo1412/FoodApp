@@ -79,3 +79,13 @@
   cursor: pointer;
   font-size: 0.8rem;
 }
+
+.btn-remove {
+  border: none;
+  background: transparent;
+  color: #e01d1d;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
