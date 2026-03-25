@@ -197,17 +197,7 @@
             <button type="button" (click)="addCardToCart(extra, 'Extras')" class="btn-add-cart">Add to cart</button>
           </article>
         </div>
-        <div class="extras-side">
-          <div class="crm-card">
-            <h3>{{ crmBoard.title }}</h3>
-            <p>{{ crmBoard.description }}</p>
-            <p *ngIf="crmBoard.lastOrder"><strong>Last item:</strong> {{ crmBoard.lastOrder }}</p>
-            <p *ngIf="crmBoard.lastOrderValue"><strong>Value:</strong> R{{ crmBoard.lastOrderValue }}</p>
-            <p><strong>Cart:</strong> {{ cart.length }} items</p>
-            <p><strong>Total:</strong> R{{ getCartTotal() }}</p>
-            <a routerLink="/crm" class="link-btn">Go to CRM page</a>
-          </div>
-        </div>
+       
       </div>
     </section>
 
