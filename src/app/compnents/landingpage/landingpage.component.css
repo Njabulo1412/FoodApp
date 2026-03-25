@@ -223,7 +223,21 @@
   cursor: pointer;
   border: none;
 }
-
+.btnsecondary {
+  background: transparent;
+  border: none;
+  color: #e01d1d;
+  box-shadow: none;
+  margin-bottom: 30px;
+  margin-top: 50;
+  padding: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: color(from color srgb #e01d1d);
+}
 .btn-primary {
   background: linear-gradient(120deg, #ff5b3c, #e01d1d);
   color: #fff;
@@ -231,10 +245,29 @@
 
 .btn-secondary {
   background: transparent;
+  border: none;
   color: #e01d1d;
-  border: 0px solid #e01d1d;
+  box-shadow: none;
   margin-bottom: 30px;
   margin-top: 50;
+  padding: 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+
+.btn-secondary,
+.btn-secondary:link,
+.btn-secondary:visited {
+  color: #e01d1d;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  text-decoration: underline;
 }
 
 .hero-visual {
@@ -375,6 +408,10 @@
   text-decoration: none;
 }
 
+a.btn-secondary {
+  color: #e01d1d;
+}
+
 .contact {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -443,4 +480,9 @@
   .hero-actions {
     flex-direction: column;
   }
+}
+.info-grid .btn-secondary,
+.info-grid .btn-secondary:link,
+.info-grid .btn-secondary:visited {
+  color: #e01d1d !important;
 }

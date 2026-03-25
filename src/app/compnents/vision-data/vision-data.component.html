@@ -92,11 +92,33 @@
         </div>
         <p class="graph-title">📈 Graphs to Include</p>
         <div class="graph-details">
-          <div class="graph-block">
-            <strong>Revenue Growth (Line Graph)</strong>
-            <p>Jan: R 45,000<br />
-              Feb: R 72,000<br />
-              Mar: R 128,450</p>
+        <div class="graph-block">
+          <strong>Revenue Growth (Line Graph)</strong>
+          <div class="graph-sparkline-wrapper">
+            <ng-container *ngIf="getLineChartPoints(lineChartSpecs.revenue.values) as revenuePoints">
+              <svg class="graph-sparkline graph-sparkline--revenue" viewBox="0 0 120 60" aria-hidden="true">
+                <polyline
+                  [attr.points]="buildPolyline(revenuePoints)"
+                  [attr.stroke]="lineChartSpecs.revenue.stroke">
+                </polyline>
+                <circle
+                  *ngFor="let point of revenuePoints"
+                  [attr.cx]="point.x"
+                  [attr.cy]="point.y"
+                  r="3.5"
+                  [attr.stroke]="lineChartSpecs.revenue.stroke"
+                  fill="#fff">
+                  <title>{{ formatChartValue('revenue', point.value) }}</title>
+                </circle>
+              </svg>
+            </ng-container>
+            <div class="graph-axis-labels">
+              <span *ngFor="let label of lineChartSpecs.revenue.labels">{{ label }}</span>
+            </div>
+          </div>
+          <p>Jan: R 45,000<br />
+            Feb: R 72,000<br />
+            Mar: R 128,450</p>
           </div>
           <div class="graph-block">
             <strong>Daily Orders (Bar Chart)</strong>
@@ -239,10 +261,32 @@
           <li>🍔 Food Quality Score: 4.5 / 5</li>
         </ul>
         <div class="graph-details">
-          <div class="graph-block">
-            <strong>Customer Satisfaction Trend</strong>
-            <p>Week 1: 4.1 · Week 2: 4.2 · Week 3: 4.3 · Week 4: 4.4</p>
+        <div class="graph-block">
+          <strong>Customer Satisfaction Trend</strong>
+          <div class="graph-sparkline-wrapper">
+            <ng-container *ngIf="getLineChartPoints(lineChartSpecs.satisfaction.values) as satisfactionPoints">
+              <svg class="graph-sparkline graph-sparkline--satisfaction" viewBox="0 0 120 60" aria-hidden="true">
+                <polyline
+                  [attr.points]="buildPolyline(satisfactionPoints)"
+                  [attr.stroke]="lineChartSpecs.satisfaction.stroke">
+                </polyline>
+                <circle
+                  *ngFor="let point of satisfactionPoints"
+                  [attr.cx]="point.x"
+                  [attr.cy]="point.y"
+                  r="3"
+                  [attr.stroke]="lineChartSpecs.satisfaction.stroke"
+                  fill="#fff">
+                  <title>{{ formatChartValue('satisfaction', point.value) }}</title>
+                </circle>
+              </svg>
+            </ng-container>
+            <div class="graph-axis-labels">
+              <span *ngFor="let label of lineChartSpecs.satisfaction.labels">{{ label }}</span>
+            </div>
           </div>
+          <p>Week 1: 4.1 · Week 2: 4.2 · Week 3: 4.3 · Week 4: 4.4</p>
+        </div>
           <div class="graph-block">
             <strong>NPS Score Breakdown</strong>
             <p>Promoters: 60% · Passive: 25% · Detractors: 15%</p>
@@ -322,15 +366,59 @@
         </div>
         <p class="graph-title">📈 Behavior Graphs</p>
         <div class="graph-details">
-          <div class="graph-block">
-            <strong>Peak Order Time (Line Graph)</strong>
-            <p>12PM: 40 · 2PM: 65 · 4PM: 80<br />
-              6PM: 140 · 8PM: 180 · 10PM: 90</p>
+        <div class="graph-block">
+          <strong>Peak Order Time (Line Graph)</strong>
+          <div class="graph-sparkline-wrapper">
+            <ng-container *ngIf="getLineChartPoints(lineChartSpecs.peak.values) as peakPoints">
+              <svg class="graph-sparkline graph-sparkline--peak" viewBox="0 0 120 60" aria-hidden="true">
+                <polyline
+                  [attr.points]="buildPolyline(peakPoints)"
+                  [attr.stroke]="lineChartSpecs.peak.stroke">
+                </polyline>
+                <circle
+                  *ngFor="let point of peakPoints"
+                  [attr.cx]="point.x"
+                  [attr.cy]="point.y"
+                  r="3.2"
+                  [attr.stroke]="lineChartSpecs.peak.stroke"
+                  fill="#fff">
+                  <title>{{ formatChartValue('peak', point.value) }}</title>
+                </circle>
+              </svg>
+            </ng-container>
+            <div class="graph-axis-labels">
+              <span *ngFor="let label of lineChartSpecs.peak.labels">{{ label }}</span>
+            </div>
+          </div>
+          <p>12PM: 40 · 2PM: 65 · 4PM: 80<br />
+            6PM: 140 · 8PM: 180 · 10PM: 90</p>
             <p class="insight-note">👉 Insight: Most users order at night → target dinner promos</p>
           </div>
-          <div class="graph-block">
-            <strong>Customer Order Frequency</strong>
-            <p>1 Order: 35% · 2-3 Orders: 40% · 4-6 Orders: 20% · 7+ Orders: 5%</p>
+        <div class="graph-block">
+          <strong>Customer Order Frequency</strong>
+          <div class="graph-sparkline-wrapper">
+            <ng-container *ngIf="getLineChartPoints(lineChartSpecs.frequency.values) as frequencyPoints">
+              <svg class="graph-sparkline graph-sparkline--frequency" viewBox="0 0 120 60" aria-hidden="true">
+                <polyline
+                  [attr.points]="buildPolyline(frequencyPoints)"
+                  [attr.stroke]="lineChartSpecs.frequency.stroke">
+                </polyline>
+                <circle
+                  *ngFor="let point of frequencyPoints"
+                  [attr.cx]="point.x"
+                  [attr.cy]="point.y"
+                  r="3"
+                  [attr.stroke]="lineChartSpecs.frequency.stroke"
+                  fill="#fff">
+                  <title>{{ formatChartValue('frequency', point.value) }}</title>
+                </circle>
+              </svg>
+            </ng-container>
+            <div class="graph-axis-labels">
+              <span *ngFor="let label of lineChartSpecs.frequency.labels">{{ label }}</span>
+            </div>
+          </div>
+          <p>1 Order: 35% · 2-3 Orders: 40% · 4-6 Orders: 20% · 7+ Orders: 5%</p>
             <p class="insight-note">👉 Insight: Majority are mid-level loyal users → upsell opportunity</p>
           </div>
           <div class="graph-block">
@@ -383,75 +471,9 @@
           <li>🔁 Repeat Behavior: 54% reorder within 7 days · 30% reorder the same item</li>
           <li class="insight-note">👉 Insight: Add “Order Again” button (very important feature)</li>
         </ul>
-        <h4>📡 Tracking Customer Behavior (System)</h4>
-        <p>Add this to your database:</p>
-        <p>🗄️ User Behavior Table</p>
-        <ul class="survey-questions">
-          <li>behavior_id (PK)</li>
-          <li>user_id (FK)</li>
-          <li>action (view / add_to_cart / purchase)</li>
-          <li>product_id</li>
-          <li>timestamp</li>
-          <li>device</li>
-          <li>session_id</li>
-        </ul>
-        <h4>🤖 Smart CRM + Behavior Automation</h4>
-        <ul class="survey-questions">
-          <li>🏷️ If user views item 3 times → 🔔 Send discount</li>
-          <li>🛒 If cart abandoned: After 1 hour → 📩 Reminder</li>
-          <li>🎁 If frequent buyer → Loyalty reward</li>
-        </ul>
-        <h4>📊 Customer Heatmap (UX Behavior)</h4>
-        <p>Track where users click, where they drop off.</p>
-        <p class="insight-note">👉 Insight Example: Users click “Add to Cart” a lot but leave at checkout → fix payment UX</p>
-        <h4>🚀 Advanced (Very Impressive)</h4>
-        <p>🔥 Predictive Behavior</p>
-        <p>System predicts who will order tonight, who will churn, and what product will sell more.</p>
-        <p>Example: 70% chance user buys burger → show burger first · User inactive 20 days → send promo</p>
-        <h4>🧩 How This Connects to CRM</h4>
-        <p>Customer Behavior feeds into CRM Dashboard for personalised marketing, retention, and sales growth.</p>
-        <p class="insight-note">💡 FINAL POWER STATEMENT: “Customer behaviour analytics enables the business to track user interactions, identify purchasing patterns, and personalise customer experiences. By leveraging this data, the system improves customer retention, increases conversion rates, and enhances overall operational efficiency.”</p>
-        <p>✅ If you want next: I can design this as a real admin dashboard UI, turn everything into a PDF assignment/report, or build actual code (React + database). Just say “Make it a dashboard UI” or “Turn into PDF”.</p>
-      </article>
+       </article>
 
-      <article class="monitoring-section">
-        <h3>🚀 HOW TO CONNECT THIS TO YOUR WEBSITE</h3>
-        <p>Based on your app (like Food Ordering App UI):</p>
-        <p>Backend Stack Idea:</p>
-        <ul class="survey-questions">
-          <li>Database: PostgreSQL / Firebase</li>
-          <li>API: Node.js / Express</li>
-          <li>Dashboard: React (Admin Panel)</li>
-        </ul>
-        <p>Integration Flow</p>
-        <ul class="survey-questions">
-          <li>User places order → stored in Orders Table</li>
-          <li>Payment → stored in Payments Table</li>
-          <li>Feedback → goes to Surveys + Reviews</li>
-          <li>CRM → analyzes:
-            <ul class="nested-list">
-              <li>buying frequency</li>
-              <li>spending</li>
-              <li>behavior</li>
-            </ul>
-          </li>
-        </ul>
-      </article>
-
-      <article class="monitoring-section">
-        <h3>💡 NEXT LEVEL (To Impress Your Lecturer)</h3>
-        <ul class="survey-questions">
-          <li>🔥 AI Recommendation Engine (“People who bought burgers also buy drinks”)</li>
-          <li>📍 Real-time Delivery Tracking</li>
-          <li>🎯 Personalized Offers (based on customer behavior)</li>
-        </ul>
-        <p>✅ If you want next step:</p>
-        <p>I can design the actual UI (screens) for:</p>
-        <p>Admin dashboard (Figma style)<br />
-           Database ERD diagram<br />
-           Full working system architecture</p>
-        <p>Just say: “Design the UI” or <strong>“Build full system”</strong></p>
-      </article>
+      
     </section>
   </section>
 </div>

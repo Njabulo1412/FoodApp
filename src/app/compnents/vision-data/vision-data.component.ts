@@ -65,6 +65,33 @@ export class VisionDataComponent {
     { title: 'New Business Funnel', value: 'R1.04M', meta: 'Opportunity Value', type: 'funnel' }
   ];
 
+  lineChartSpecs = {
+    revenue: {
+      values: [45000, 72000, 128450],
+      labels: ['Jan', 'Feb', 'Mar'],
+      stroke: '#0f172a'
+    },
+    satisfaction: {
+      values: [4.1, 4.2, 4.3, 4.4],
+      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+      stroke: '#047857'
+    },
+    peak: {
+      values: [40, 65, 80, 140, 180, 90],
+      labels: ['12PM', '2PM', '4PM', '6PM', '8PM', '10PM'],
+      stroke: '#3a7df8'
+    },
+    frequency: {
+      values: [35, 40, 20, 5],
+      labels: ['1', '2-3', '4-6', '7+'],
+      stroke: '#be123c'
+    }
+  };
+
+  private readonly chartWidth = 120;
+  private readonly chartHeight = 60;
+  private readonly chartPadding = 8;
+
   activeLink = this.sidebarLinks[0];
   activeInsight: string | null = null;
   actionsExpanded = false;
@@ -79,5 +106,41 @@ export class VisionDataComponent {
 
   toggleActions(): void {
     this.actionsExpanded = !this.actionsExpanded;
+  }
+
+  getLineChartPoints(values: number[]): { x: number; y: number; value: number }[] {
+    const plotWidth = this.chartWidth - this.chartPadding * 2;
+    const plotHeight = this.chartHeight - this.chartPadding * 2;
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const range = max - min || 1;
+    const step = values.length > 1 ? plotWidth / (values.length - 1) : plotWidth;
+
+    return values.map((value, index) => {
+      const x = this.chartPadding + index * step;
+      const normalized = (value - min) / range;
+      const y = this.chartPadding + plotHeight - normalized * plotHeight;
+      return { x, y, value };
+    });
+  }
+
+  buildPolyline(points: { x: number; y: number }[]): string {
+    return points.map(point => `${point.x},${point.y}`).join(' ');
+  }
+
+  formatChartValue(chartKey: keyof VisionDataComponent['lineChartSpecs'], value: number): string {
+    if (chartKey === 'revenue') {
+      return `R ${value.toLocaleString('en-ZA')}`;
+    }
+    if (chartKey === 'satisfaction') {
+      return value.toFixed(1);
+    }
+    if (chartKey === 'peak') {
+      return `${value}`;
+    }
+    if (chartKey === 'frequency') {
+      return `${value}%`;
+    }
+    return value.toString();
   }
 }

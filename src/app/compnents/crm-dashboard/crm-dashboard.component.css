@@ -213,28 +213,27 @@
   overflow: hidden;
   background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(15,23,42,0.02));
 }
-
-.chart-grid .line {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  height: 2px;
-  border-radius: 999px;
+.chart-grid svg {
+  width: 100%;
+  height: 100%;
 }
 
-.chart-grid .line-a {
-  top: 30%;
-  background: linear-gradient(90deg, #3a7df8, transparent);
+.chart-grid line {
+  stroke: rgba(15, 23, 42, 0.1);
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
 }
 
-.chart-grid .line-b {
-  top: 55%;
-  background: linear-gradient(90deg, #f27474, transparent);
+.chart-grid polyline {
+  fill: none;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
 }
 
-.chart-grid .line-c {
-  top: 75%;
-  background: linear-gradient(90deg, #f2ac3a, transparent);
+.chart-grid circle {
+  stroke-width: 2;
+  pointer-events: none;
 }
 
 .traffic-breakdown {

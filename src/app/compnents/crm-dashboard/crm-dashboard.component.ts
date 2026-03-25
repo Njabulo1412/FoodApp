@@ -52,6 +52,12 @@ export class CrmDashboardComponent implements OnInit, OnDestroy {
     { label: 'Social', percent: '11%', color: '#5fdcca' }
   ];
 
+  trafficLineSeries = [
+    { label: 'Direct', values: [1120, 1320, 1480, 1630, 1760, 1890], color: '#3a7df8' },
+    { label: 'Referrals', values: [780, 850, 910, 980, 1040, 1120], color: '#f27474' },
+    { label: 'Search', values: [620, 700, 750, 800, 865, 920], color: '#f2ac3a' }
+  ];
+
   tasks: Task[] = [
     { name: 'Update loyalty flow', priority: 'High', due: 'Apr 11', status: 'In Progress', owner: 'Joshua' },
     { name: 'Automate CRM sync', priority: 'Medium', due: 'Apr 12', status: 'Ready', owner: 'Andile' },
@@ -139,6 +145,44 @@ export class CrmDashboardComponent implements OnInit, OnDestroy {
       cancelled: 'Cancelled'
     };
     return mapping[status] || status;
+  }
+
+  get trafficChartMax(): number {
+    return Math.max(...this.trafficLineSeries.flatMap(series => series.values));
+  }
+
+  get trafficChartMin(): number {
+    return Math.min(...this.trafficLineSeries.flatMap(series => series.values));
+  }
+
+  getPolylinePoints(values: number[]): string {
+    const width = 120;
+    const height = 60;
+    const max = this.trafficChartMax;
+    const min = this.trafficChartMin;
+    const range = max - min || 1;
+    const step = values.length > 1 ? width / (values.length - 1) : width;
+    return values
+      .map((value, index) => {
+        const normalized = (value - min) / range;
+        const x = index * step;
+        const y = height - normalized * (height - 12) - 4;
+        return `${x},${y}`;
+      })
+      .join(' ');
+  }
+
+  getPointPosition(value: number, index: number, total: number): { x: number; y: number } {
+    const width = 120;
+    const height = 60;
+    const max = this.trafficChartMax;
+    const min = this.trafficChartMin;
+    const range = max - min || 1;
+    const step = total > 1 ? width / (total - 1) : width;
+    const normalized = (value - min) / range;
+    const x = index * step;
+    const y = height - normalized * (height - 12) - 4;
+    return { x, y };
   }
 
   private refreshLiveStatuses(): void {

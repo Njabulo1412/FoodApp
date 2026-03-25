@@ -84,9 +84,30 @@
             <span *ngFor="let year of trafficTimeline">{{ year }}</span>
           </div>
           <div class="chart-grid">
-            <span class="line line-a"></span>
-            <span class="line line-b"></span>
-            <span class="line line-c"></span>
+            <svg viewBox="0 0 120 60" class="traffic-svg" role="img" aria-label="Monthly traffic trends">
+              <g class="grid-lines">
+                <line *ngFor="let y of [8, 30, 52]" x1="0" x2="120" [attr.y1]="y" [attr.y2]="y"></line>
+              </g>
+              <g *ngFor="let series of trafficLineSeries">
+                <polyline
+                  [attr.points]="getPolylinePoints(series.values)"
+                  [attr.stroke]="series.color"
+                ></polyline>
+                <ng-container *ngFor="let value of series.values; let i = index">
+                  <ng-container *ngIf="getPointPosition(value, i, series.values.length) as point">
+                    <circle
+                      [attr.cx]="point.x"
+                      [attr.cy]="point.y"
+                      r="3.5"
+                      [attr.stroke]="series.color"
+                      fill="#fff"
+                    >
+                      <title>{{ series.label }}: {{ value }}</title>
+                    </circle>
+                  </ng-container>
+                </ng-container>
+              </g>
+            </svg>
           </div>
         </div>
         <div class="traffic-breakdown">
