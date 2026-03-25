@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 
+interface SidebarLink {
+  icon: string;
+  label: string;
+  sectionId: string;
+}
+
 @Component({
   selector: 'app-vision-data',
   templateUrl: './vision-data.component.html',
@@ -46,12 +52,13 @@ export class VisionDataComponent {
     'Custom widgets for KPIs and urgent follow-ups'
   ];
 
-  sidebarLinks = [
-    { icon: '🏠', label: 'Behaviour' },
-    { icon: '📊', label: 'Transactional behaviour' },
-    { icon: '🗃️', label: 'Database Structure' },
-    { icon: '📝', label: 'Surveys' },
-    { icon: '🧭', label: 'Data Journal' },
+  sidebarLinks: SidebarLink[] = [
+    { icon: '🏠', label: 'Main Dashboard', sectionId: 'main-admin-dashboard' },
+    { icon: '🗃️', label: 'Database Structure', sectionId: 'database-structure' },
+    { icon: '🧮', label: 'Transactional Data', sectionId: 'transactional-data' },
+    { icon: '📝', label: 'Surveys', sectionId: 'surveys-section' },
+    { icon: '📈', label: 'CRM Monitoring', sectionId: 'crm-monitoring' },
+    { icon: '🧠', label: 'Customer Behavior', sectionId: 'customer-behavior' }
   ];
 
   insights = [
@@ -92,12 +99,15 @@ export class VisionDataComponent {
   private readonly chartHeight = 60;
   private readonly chartPadding = 8;
 
-  activeLink = this.sidebarLinks[0];
+  activeLink: SidebarLink = this.sidebarLinks[0];
   activeInsight: string | null = null;
   actionsExpanded = false;
 
-  selectSidebar(link: { icon: string; label: string }): void {
+  selectSidebar(link: SidebarLink): void {
     this.activeLink = link;
+    if (link.sectionId) {
+      this.scrollToSection(link.sectionId);
+    }
   }
 
   selectInsight(insight: { title: string; type: string }): void {
@@ -142,5 +152,12 @@ export class VisionDataComponent {
       return `${value}%`;
     }
     return value.toString();
+  }
+
+  private scrollToSection(id: string): void {
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 }
